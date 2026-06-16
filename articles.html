@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kairos — Articles Reference</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #06080f;
+      color: #c8d8e8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 15% 20%, rgba(20,40,120,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%, rgba(60,10,80,0.2) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(0,80,100,0.1) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ─── Nav ─── */
+    .site-nav {
+      position: relative; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px;
+      padding: 14px 28px;
+      background: rgba(4,6,16,0.95);
+      border-bottom: 1px solid rgba(80,200,220,0.2);
+    }
+    .site-nav .nav-logo { font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; color: #50c8dc; text-decoration: none; font-weight: bold; }
+    .site-nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    .site-nav .nav-links a { font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: #607880; text-decoration: none; transition: color 0.2s; }
+    .site-nav .nav-links a:hover, .site-nav .nav-links a.active { color: #50c8dc; }
+
+    /* ─── Hero ─── */
+    .page-hero {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 48px 20px 36px;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .page-hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9060a8; margin-bottom: 10px; }
+    .page-hero h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); letter-spacing: 0.1em; text-transform: uppercase; color: #50c8dc; text-shadow: 0 0 30px rgba(80,200,220,0.35); margin-bottom: 10px; }
+    .page-hero p { font-size: 0.88rem; color: #607880; line-height: 1.7; max-width: 560px; margin: 0 auto; font-style: italic; }
+
+    /* ─── Factor Key ─── */
+    .factor-section {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 36px auto 0; padding: 0 20px;
+    }
+    .factor-section h2 { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: #50c8dc; margin-bottom: 14px; text-align: center; }
+    .factor-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .factor-chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 5px 12px;
+      border-radius: 3px;
+      font-size: 0.76rem;
+    }
+    .factor-chip .fc-key { font-weight: bold; font-size: 0.88rem; }
+    .fc-a { background: rgba(220,180,60,0.08); border: 1px solid rgba(220,180,60,0.3); color: #c8a840; }
+    .fc-a .fc-key { color: #e0c050; }
+    .fc-s { background: rgba(80,160,220,0.08); border: 1px solid rgba(80,160,220,0.3); color: #6090c8; }
+    .fc-s .fc-key { color: #70a8e0; }
+    .fc-c { background: rgba(80,220,160,0.08); border: 1px solid rgba(80,220,160,0.3); color: #50b890; }
+    .fc-c .fc-key { color: #60d0a0; }
+    .fc-p { background: rgba(160,80,220,0.08); border: 1px solid rgba(160,80,220,0.3); color: #a060c8; }
+    .fc-p .fc-key { color: #b878e0; }
+    .fc-m { background: rgba(220,80,80,0.08); border: 1px solid rgba(220,80,80,0.3); color: #c86060; }
+    .fc-m .fc-key { color: #e07070; }
+    .fc-h { background: rgba(80,200,220,0.08); border: 1px solid rgba(80,200,220,0.3); color: #50a8b8; }
+    .fc-h .fc-key { color: #50c8dc; }
+
+    /* ─── Article Sections ─── */
+    .articles-wrap {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 36px auto 0; padding: 0 20px 60px;
+      display: flex; flex-direction: column; gap: 44px;
+    }
+
+    .article-section {}
+    .article-section-header {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .article-section-header h2 { font-size: clamp(1rem, 2.5vw, 1.3rem); letter-spacing: 0.08em; text-transform: uppercase; }
+    .article-section-header.items h2 { color: #50c8dc; }
+    .article-section-header.crystals h2 { color: #b080dc; }
+    .article-section-header.artifacts h2 { color: #dc7050; }
+    .article-section-header .count { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #405060; }
+    .article-section-header .type-desc { font-size: 0.78rem; color: #506070; font-style: italic; flex: 1; }
+
+    .article-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .article-table th {
+      text-align: left; padding: 10px 12px;
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #405060;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .article-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(80,200,220,0.06);
+      vertical-align: middle;
+    }
+    .article-table tr:hover td { background: rgba(80,200,220,0.03); }
+    .article-table td:first-child { color: #c8d8e8; font-weight: normal; }
+
+    .kairos-val { color: #50c8dc; font-weight: bold; font-size: 1.05rem; }
+    .blots-val { color: #dc5050; font-size: 1.05rem; }
+    .blots-none { color: #405060; }
+
+    .factors-cell { display: flex; flex-wrap: wrap; gap: 4px; }
+    .f-badge {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: bold;
+      padding: 1px 6px; border-radius: 2px;
+      letter-spacing: 0.05em;
+    }
+    .f-a { background: rgba(220,180,60,0.12); color: #e0c050; border: 1px solid rgba(220,180,60,0.25); }
+    .f-s { background: rgba(80,160,220,0.12); color: #70a8e0; border: 1px solid rgba(80,160,220,0.25); }
+    .f-c { background: rgba(80,220,160,0.12); color: #60d0a0; border: 1px solid rgba(80,220,160,0.25); }
+    .f-p { background: rgba(160,80,220,0.12); color: #b878e0; border: 1px solid rgba(160,80,220,0.25); }
+    .f-m { background: rgba(220,80,80,0.12); color: #e07070; border: 1px solid rgba(220,80,80,0.25); }
+    .f-h { background: rgba(80,200,220,0.12); color: #50c8dc; border: 1px solid rgba(80,200,220,0.25); }
+
+    .section-note {
+      margin-top: 12px;
+      font-size: 0.78rem; line-height: 1.65; color: #506070; font-style: italic;
+      padding: 10px 14px;
+      border-left: 2px solid rgba(80,200,220,0.2);
+    }
+    .section-note.crystals-note { border-left-color: rgba(160,80,220,0.25); }
+    .section-note.artifacts-note { border-left-color: rgba(220,110,80,0.25); }
+
+    footer { position: relative; z-index: 1; text-align: center; padding: 20px; font-size: 0.7rem; color: #304050; letter-spacing: 0.1em; border-top: 1px solid rgba(80,200,220,0.08); }
+    @media (max-width: 640px) {
+      .site-nav { flex-direction: column; gap: 10px; }
+      .article-section-header { flex-direction: column; gap: 4px; }
+      .article-table th:nth-child(4), .article-table td:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">⧖ Kairos</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Tutorial Series</a></li>
+    <li><a href="articles.html" class="active">Articles</a></li>
+    <li><a href="dice.html">Dice</a></li>
+    <li><a href="processes.html">Processes</a></li>
+    <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Reference Guide</div>
+  <h1>Articles</h1>
+  <p>Complete listing of all Items, Crystals, and Artifacts — with recovery factor requirements and Kairos values</p>
+</div>
+
+<!-- Factor Key -->
+<div class="factor-section">
+  <h2>Recovery Factor Key</h2>
+  <div class="factor-grid">
+    <span class="factor-chip fc-a"><span class="fc-key">A</span> Archaeology</span>
+    <span class="factor-chip fc-s"><span class="fc-key">S</span> Security</span>
+    <span class="factor-chip fc-c"><span class="fc-key">C</span> Cyber</span>
+    <span class="factor-chip fc-p"><span class="fc-key">P</span> Psychic</span>
+    <span class="factor-chip fc-m"><span class="fc-key">M</span> Medical</span>
+    <span class="factor-chip fc-h"><span class="fc-key">H</span> Historian</span>
+  </div>
+</div>
+
+<div class="articles-wrap">
+
+  <!-- ─── ITEMS ─── -->
+  <div class="article-section">
+    <div class="article-section-header items">
+      <h2>Items</h2>
+      <span class="count">12 articles</span>
+      <span class="type-desc">Historical objects · Past locations · Carry to HQ to earn Kairos, remove 1 blot, reduce Paradox</span>
+    </div>
+    <table class="article-table">
+      <thead>
+        <tr>
+          <th>Article</th>
+          <th>Kairos</th>
+          <th>Blots</th>
+          <th>Required Factors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Antikythera</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Babylonian Tablet</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Da Vinci's Compass</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Henry VII Armour</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Maltese Falcon</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span></div></td>
+        </tr>
+        <tr>
+          <td>Schrödinger's Cat</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span></div></td>
+        </tr>
+        <tr>
+          <td>Shakespeare's Quill</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Shambhala Passport</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Tesla's Coil Fragment</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>The Crown Jewels</td>
+          <td class="kairos-val">4</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Tesseract Cube</td>
+          <td class="kairos-val">4</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Viking Runestone</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="section-note">
+      Items are placed randomly at Past (historical) Time Locations at setup. An agent at the same hex may attempt recovery using the six-factor dice system. Once recovered, carry to HQ to earn Kairos, remove one blot from the board, and reduce the Paradox Counter by one.
+    </div>
+  </div>
+
+  <!-- ─── CRYSTALS ─── -->
+  <div class="article-section">
+    <div class="article-section-header crystals">
+      <h2>Crystals</h2>
+      <span class="count">12 articles</span>
+      <span class="type-desc">Future space locations · Deposit at HQ for ongoing Timeline boost · Each paired with one Artifact at setup</span>
+    </div>
+    <table class="article-table">
+      <thead>
+        <tr>
+          <th>Crystal</th>
+          <th>Kairos</th>
+          <th>Blots</th>
+          <th>Required Factors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Amethyst</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span></div></td>
+        </tr>
+        <tr>
+          <td>Beryl</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Chalcedony</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Chrysolite</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Chrysoprasus</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Emerald</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Jacinth</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Jasper</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Sapphire</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Sardius</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Sardonyx</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Topaz</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="section-note crystals-note">
+      Crystals are located at Future (space) Time Locations. During Kronos Phase 4 (Crystal Light), crystals at HQ give a flat +1 to the timeline (+2 if empowered). Crystals in the field at their correct Time Location roll 2d6 vs 9 — success gives +1. Crystals carried or at wrong locations contribute nothing. At setup, each crystal is secretly paired with one artifact — a TimeLord can Empower a crystal at HQ to boost it, earn +1 Kairos, and nerf its paired artifact for the round (skips empower &amp; Timeline Control phases).
+    </div>
+  </div>
+
+  <!-- ─── ARTIFACTS ─── -->
+  <div class="article-section">
+    <div class="article-section-header artifacts">
+      <h2>Artifacts</h2>
+      <span class="count">12 articles</span>
+      <span class="type-desc">Fixed locations · Never move · Guard in the field to earn Kairos and protect from Kronos</span>
+    </div>
+    <table class="article-table">
+      <thead>
+        <tr>
+          <th>Artifact</th>
+          <th>Kairos</th>
+          <th>Blots</th>
+          <th>Required Factors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ark of the Covenant</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Chintamani Stone</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Crystal Skull</td>
+          <td class="kairos-val">4</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Devil's Chair</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Excalibur Sword</td>
+          <td class="kairos-val">4</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Holy Grail</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Jade Monkey</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>King Solomon's Ring</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td>Nefertiti's Amulet</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Seal of Solomon</td>
+          <td class="kairos-val">2</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+        <tr>
+          <td>Spear of Destiny</td>
+          <td class="kairos-val">3</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+        </tr>
+        <tr>
+          <td>Staff of Osiris</td>
+          <td class="kairos-val">4</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="section-note artifacts-note">
+      Artifacts are fixed to their printed hex locations and never move. An agent at the artifact's hex can Guard it — earning Kairos each round they remain there and making Kronos far less likely to steal it in Phase 1. Kronos targets all artifacts, rolling 2d6 per artifact and stealing on 9+ after modifiers (−5 non-portal, +3 ring-1, +2 Hard / −2 Easy, plus crystal excess and timeline tier, −4 Protected / −2 Guarded). If Kronos holds an artifact, it generates Timeline Control damage every round in Phase 3. Artifacts do not remove blots when recovered. Each artifact is paired with one crystal at setup — empowering that crystal nerfs the artifact for the round.
+    </div>
+  </div>
+
+</div>
+
+<footer>KAIROS — THE TIME TRAVEL GAME &nbsp;·&nbsp; Board Game Arena &nbsp;·&nbsp; Articles Reference</footer>
+</body>
+</html>

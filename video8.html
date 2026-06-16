@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video 8 — Winning, Scoring, and the Time Vortex</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Georgia', 'Times New Roman', serif; background-color: #06080f; color: #c8d8e8; min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(ellipse at 15% 20%, rgba(20,40,120,0.25) 0%, transparent 55%), radial-gradient(ellipse at 85% 75%, rgba(60,10,80,0.2) 0%, transparent 55%), radial-gradient(ellipse at 50% 50%, rgba(0,80,100,0.1) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+    .site-nav { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; gap: 32px; padding: 14px 28px; background: rgba(4,6,16,0.95); border-bottom: 1px solid rgba(80,200,220,0.2); }
+    .site-nav .nav-logo { font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; color: #50c8dc; text-decoration: none; font-weight: bold; }
+    .site-nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    .site-nav .nav-links a { font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: #607880; text-decoration: none; transition: color 0.2s; }
+    .site-nav .nav-links a:hover { color: #50c8dc; }
+    .page-hero { position: relative; z-index: 1; text-align: center; padding: 48px 20px 36px; border-bottom: 1px solid rgba(80,200,220,0.15); }
+    .video-num-badge { display: inline-block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: #9060a8; margin-bottom: 10px; }
+    .page-hero h1 { font-size: clamp(1.3rem, 4vw, 2rem); letter-spacing: 0.06em; text-transform: uppercase; color: #50c8dc; text-shadow: 0 0 30px rgba(80,200,220,0.35); margin-bottom: 10px; }
+    .page-hero .meta { font-size: 0.78rem; color: #607880; letter-spacing: 0.08em; text-transform: uppercase; }
+    .page-hero .meta span { color: #50c8dc; }
+    .video-wrap { position: relative; z-index: 1; max-width: 860px; margin: 36px auto 0; padding: 0 20px; }
+    .yt-embed { position: relative; width: 100%; padding-bottom: 56.25%; background: #030508; border: 1px solid rgba(80,200,220,0.2); border-radius: 4px; overflow: hidden; }
+    .yt-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .yt-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #304050; text-align: center; padding: 20px; }
+    .yt-placeholder .play-icon { font-size: 3rem; opacity: 0.3; }
+    .yt-placeholder p { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.6; }
+    .content-wrap { position: relative; z-index: 1; max-width: 860px; margin: 36px auto 0; padding: 0 20px 60px; display: flex; flex-direction: column; gap: 28px; }
+    .section-block { border: 1px solid rgba(80,200,220,0.12); border-radius: 4px; background: rgba(8,12,24,0.7); padding: 24px 26px; }
+    .section-block h2 { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #50c8dc; margin-bottom: 14px; }
+    .section-block p { font-size: 0.88rem; line-height: 1.78; color: #8098a8; }
+    .section-block ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .section-block ul li { font-size: 0.86rem; line-height: 1.65; color: #8098a8; padding-left: 16px; position: relative; }
+    .section-block ul li::before { content: '▸'; position: absolute; left: 0; color: #50c8dc; font-size: 0.7rem; top: 3px; }
+    .score-formula { background: rgba(80,200,220,0.05); border: 1px solid rgba(80,200,220,0.25); border-radius: 4px; padding: 20px 22px; text-align: center; margin-top: 4px; }
+    .score-formula .formula-text { font-size: 1.3rem; color: #50c8dc; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .score-formula p { font-size: 0.8rem; color: #607880; line-height: 1.6; }
+    .vortex-box { background: rgba(144,96,168,0.08); border: 1px solid rgba(144,96,168,0.3); border-radius: 4px; padding: 18px 20px; }
+    .vortex-box .vb-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #b080dc; margin-bottom: 10px; font-weight: bold; }
+    .vortex-box ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .vortex-box ul li { font-size: 0.84rem; line-height: 1.6; color: #8070a0; padding-left: 14px; position: relative; }
+    .vortex-box ul li::before { content: '⧖'; position: absolute; left: 0; color: #b080dc; font-size: 0.65rem; top: 3px; }
+    .diff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 4px; }
+    .diff-card { background: rgba(80,200,220,0.04); border: 1px solid rgba(80,200,220,0.14); border-radius: 3px; padding: 12px 13px; }
+    .diff-card .dc-name { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #50c8dc; margin-bottom: 5px; font-weight: bold; }
+    .diff-card p { font-size: 0.76rem; line-height: 1.55; color: #506070; }
+    .topics { display: flex; flex-wrap: wrap; gap: 6px; }
+    .topic-chip { font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 2px; background: rgba(80,200,220,0.06); border: 1px solid rgba(80,200,220,0.18); color: #5090a0; }
+    .nav-row { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 20px 50px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .nav-btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 20px; border: 1px solid rgba(80,200,220,0.28); border-radius: 3px; color: #50c8dc; text-decoration: none; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(80,200,220,0.05); transition: background 0.2s; }
+    .nav-btn:hover { background: rgba(80,200,220,0.12); }
+    .nav-btn.disabled { opacity: 0.25; pointer-events: none; }
+    .nav-btn.home { color: #9060a8; border-color: rgba(144,96,168,0.35); background: rgba(144,96,168,0.05); }
+    .nav-btn.home:hover { background: rgba(144,96,168,0.12); }
+    footer { position: relative; z-index: 1; text-align: center; padding: 20px; font-size: 0.7rem; color: #304050; letter-spacing: 0.1em; border-top: 1px solid rgba(80,200,220,0.08); }
+    @media (max-width: 640px) { .site-nav { flex-direction: column; gap: 10px; } .nav-row { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">⧖ Kairos</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Tutorial Series</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="dice.html">Dice</a></li>
+    <li><a href="processes.html">Processes</a></li>
+    <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="video-num-badge">Video 8 of 8 &nbsp;·&nbsp; ~8 minutes</div>
+  <h1>Winning, Scoring, and the Time Vortex</h1>
+  <div class="meta">Runtime: <span>~8 minutes</span> &nbsp;·&nbsp; Topic: <span>Score Formula, Vortex, Time Collapse, Difficulty</span></div>
+</div>
+
+<div class="video-wrap">
+  <div class="yt-embed">
+    <!-- Replace this placeholder with your YouTube embed once the video is uploaded:
+         <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Kairos Video 8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    -->
+    <div class="yt-placeholder">
+      <div class="play-icon">▶</div>
+      <p>Video coming soon<br>Upload to YouTube, then embed here</p>
+    </div>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="section-block">
+    <h2>What This Video Covers</h2>
+    <p>
+      How the game actually ends — and the difference between a clean win, a Pyrrhic victory, and
+      a Kronos defeat. This final video ties together every earlier mechanic: why the early win
+      check matters, how Time Collapse can dynamically shorten the game, what the Time Vortex
+      switch-off gambit costs, and what the difficulty and Automa options change.
+    </p>
+  </div>
+
+  <div class="section-block">
+    <h2>The Scoring Formula</h2>
+    <div class="score-formula">
+      <div class="formula-text">Score = Kairos − Blots Remaining</div>
+      <p>Kairos is accumulated throughout the game via article deposits, guarding, empowering, and events.<br>
+      Blots are reduced by depositing Items. Any blot still on the board at game end subtracts from your score.</p>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Win and Loss Conditions</h2>
+    <ul>
+      <li><strong>Win (Early Check):</strong> At the start of each round, before agents act, check: if all blots are cleared AND the Main Timeline is in positive territory — the team wins immediately. Timing this so the win check fires before Kronos acts is critical.</li>
+      <li><strong>Pyrrhic Victory:</strong> Won, but with a low score due to remaining blots or minimal Kairos accumulated.</li>
+      <li><strong>Kronos Defeat:</strong> Main Timeline hits its negative limit at any point during Kronos's Phase 3 — game ends immediately in defeat.</li>
+      <li><strong>Paradox Defeat:</strong> Paradox Counter maxes out — too many undeposited items in circulation.</li>
+      <li><strong>Time Defeat:</strong> The Singularity arrives — the Kairos track runs out before the win condition is met.</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>Time Collapse and the Vortex</h2>
+    <ul>
+      <li><strong>Time Collapse (Kronos Phase 5):</strong> Each round, Kronos rolls 2d6. If the result falls below the Collapse threshold, the Kairos track advances — losing a round. High Paradox lowers the threshold, making collapse more likely.</li>
+      <li><strong>Why it matters:</strong> A string of collapse rolls can eliminate several rounds from the game, turning a comfortable position into a race. Keeping Paradox low is a direct hedge against collapse.</li>
+    </ul>
+    <div class="vortex-box" style="margin-top:16px">
+      <div class="vb-label">⧖ The Time Vortex Attempt (TimeLord Only)</div>
+      <ul>
+        <li>A TimeLord must travel to the central Vortex hex (costs their entire turn)</li>
+        <li>Roll 2d6 and add/subtract modifiers from crystals, Kairos level, and Paradox Counter</li>
+        <li>Success: Time Collapse is permanently disabled — Phase 5 no longer fires for the rest of the game. The primary player earns +8 Kairos and −3 Blots</li>
+        <li>Assist bonus: Other players with TimeLords at the Vortex who contributed to the dice modifier each receive +4 Kairos and −1 Blot</li>
+        <li>Failure: The TimeLord is permanently destroyed and removed from play</li>
+        <li>Highest risk/reward move in the game — coordinate TimeLords at the Vortex for better odds and shared rewards</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Difficulty and Game Options</h2>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="dc-name">Easy</div>
+        <p>Higher MLT starting point, lower Kronos steal thresholds (non-portal modifier still applies), more starting Kairos.</p>
+      </div>
+      <div class="diff-card">
+        <div class="dc-name">Normal</div>
+        <p>Standard settings as designed. Recommended for learning the full system.</p>
+      </div>
+      <div class="diff-card">
+        <div class="dc-name">Hard</div>
+        <p>Lower MLT start, tighter Collapse thresholds, fewer starting resources.</p>
+      </div>
+      <div class="diff-card">
+        <div class="dc-name">Automa</div>
+        <p>Solo / reduced player count mode. An automated agent fills missing player slots.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Topics in This Video</h2>
+    <div class="topics">
+      <span class="topic-chip">Win Conditions</span>
+      <span class="topic-chip">Scoring Formula</span>
+      <span class="topic-chip">Pyrrhic Victory</span>
+      <span class="topic-chip">Time Collapse</span>
+      <span class="topic-chip">Vortex Attempt</span>
+      <span class="topic-chip">Early Win Check</span>
+      <span class="topic-chip">Difficulty Options</span>
+      <span class="topic-chip">Automa Players</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-row">
+  <a href="video7.html" class="nav-btn">◀ Video 7</a>
+  <a href="index.html" class="nav-btn home">⧖ All Videos</a>
+  <a href="index.html" class="nav-btn disabled">Next ▶</a>
+</div>
+
+<footer>KAIROS — THE TIME TRAVEL GAME &nbsp;·&nbsp; Board Game Arena &nbsp;·&nbsp; Tutorial Series</footer>
+</body>
+</html>

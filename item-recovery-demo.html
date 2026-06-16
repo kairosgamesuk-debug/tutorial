@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos — Item Recovery Animation Demo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a12;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+  }
+  .controls {
+    position: fixed; top: 20px; z-index: 100;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .controls button {
+    padding: 10px 24px; border: 2px solid #4ec878; border-radius: 8px;
+    background: rgba(78,200,120,0.15); color: #4ec878;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; letter-spacing: 0.5px;
+  }
+  .controls button:hover {
+    background: rgba(78,200,120,0.35);
+    box-shadow: 0 0 20px rgba(78,200,120,0.3);
+  }
+  .controls .label { color: #665; font-size: 13px; }
+
+  /* ── Stage ──────────────────────────────────────────── */
+  .stage {
+    position: relative; width: 440px; height: 520px;
+    display: flex; align-items: center; justify-content: center;
+    --anim-color: 78, 200, 120;
+  }
+
+  /* ══════════════════════════════════════════════════════
+     ITEM RECOVERY: Agent picks up an item from a TL.
+     Article appears, then lifts upward into inventory.
+     No kairos/blots reward.  Green theme.
+     ══════════════════════════════════════════════════════ */
+
+  /* ── TL Backdrop ───────────────────────────────────── */
+  .tl-backdrop {
+    position: absolute; width: 440px; height: 520px;
+    top: 0; left: 0; z-index: 1;
+    overflow: hidden; border-radius: 20px; opacity: 0;
+  }
+  .tl-backdrop img {
+    width: 75%; height: 75%; object-fit: cover; border-radius: 12px;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    filter: brightness(0.45) saturate(0.7) blur(1px);
+  }
+  .tl-backdrop::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(10,10,18,0.7) 85%);
+    transition: opacity 1.5s ease-out; pointer-events: none;
+  }
+  .tl-backdrop.vignette-lift::after { opacity: 0; }
+  .playing .tl-backdrop     { animation: puBackdropIn 5s ease-out forwards; }
+  .playing .tl-backdrop img { animation: puBackdropBright 5s ease-out forwards; }
+  @keyframes puBackdropIn {
+    0%  { opacity: 0; } 15% { opacity: 1; } 100% { opacity: 1; }
+  }
+  @keyframes puBackdropBright {
+    0%  { filter: brightness(0.45) saturate(0.7) blur(1px); }
+    55% { filter: brightness(0.45) saturate(0.7) blur(1px); }
+    80% { filter: brightness(0.8) saturate(0.8) blur(0); }
+    100%{ filter: brightness(0.9) saturate(0.9) blur(0); }
+  }
+
+  /* ── TL Label ──────────────────────────────────────── */
+  .tl-label {
+    position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+    opacity: 0; z-index: 30; font-size: 11px; font-weight: 500;
+    color: rgba(180,200,220,0.5); letter-spacing: 3px;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .playing .tl-label { animation: puLabelFade 5s ease-out 0.2s forwards; }
+  @keyframes puLabelFade {
+    0%  { opacity:0; } 15% { opacity:0.5; } 65% { opacity:0.5; }
+    85% { opacity:0.9; } 100% { opacity:1; }
+  }
+
+  /* ── BG Pulse ──────────────────────────────────────── */
+  .bg-pulse {
+    position: absolute; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--anim-color),0.1) 0%, transparent 70%);
+    opacity: 0; z-index: 2;
+  }
+  .playing .bg-pulse { animation: puBgPulse 3s ease-out 0.3s forwards; }
+  @keyframes puBgPulse {
+    0%  { opacity:0; transform:scale(0.3); }
+    40% { opacity:1; }
+    100%{ opacity:0.5; transform:scale(1.2); }
+  }
+
+  /* ── Ground Glow ───────────────────────────────────── */
+  .ground-glow {
+    position: absolute; bottom: 40px; width: 280px; height: 50px;
+    left: 50%; transform: translateX(-50%);
+    background: radial-gradient(ellipse, rgba(var(--anim-color),0.15) 0%, transparent 70%);
+    opacity: 0; z-index: 2;
+  }
+  .playing .ground-glow { animation: puGroundFade 1.5s ease-out 0.8s forwards; }
+  @keyframes puGroundFade { 0%{ opacity:0; } 100%{ opacity:1; } }
+
+  /* ── Energy Beams ──────────────────────────────────── */
+  .energy-beam {
+    position: absolute; width: 2px; height: 0;
+    background: linear-gradient(to top, transparent, rgba(var(--anim-color),0.7), transparent);
+    top: 50%; left: 50%; transform-origin: bottom center;
+    opacity: 0; z-index: 3;
+  }
+  .energy-beam:nth-child(1) { transform: translate(-50%,-100%) rotate(-12deg); }
+  .energy-beam:nth-child(2) { transform: translate(-50%,-100%) rotate(0deg); }
+  .energy-beam:nth-child(3) { transform: translate(-50%,-100%) rotate(12deg); }
+  .playing .energy-beam { animation: puBeamShoot 1.5s ease-out forwards; }
+  .playing .energy-beam:nth-child(1) { animation-delay: 0.5s; }
+  .playing .energy-beam:nth-child(2) { animation-delay: 0.6s; }
+  .playing .energy-beam:nth-child(3) { animation-delay: 0.55s; }
+  @keyframes puBeamShoot {
+    0%  { height:0; opacity:0; }
+    30% { height:200px; opacity:0.8; }
+    100%{ height:300px; opacity:0; }
+  }
+
+  /* ── Article Image ─────────────────────────────────── */
+  .artifact-wrap { position: relative; z-index: 10; }
+  .artifact-img {
+    width: 220px; height: 220px; border-radius: 16px; object-fit: cover;
+    opacity: 0; transform: scale(0.6) translateY(20px);
+    filter: brightness(0.3) saturate(0.3); box-shadow: none;
+  }
+  .playing .artifact-img {
+    animation: puArticleReveal 4.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s forwards;
+  }
+  @keyframes puArticleReveal {
+    0%  { opacity:0; transform: scale(0.6) translateY(20px);
+          filter: brightness(0.3) saturate(0.3); }
+    12% { opacity:1; transform: scale(1.05) translateY(-5px);
+          filter: brightness(1.2) saturate(1.2); }
+    24% { opacity:1; transform: scale(1) translateY(0);
+          filter: brightness(1) saturate(1);
+          box-shadow: 0 0 40px rgba(var(--anim-color),0.5), 0 0 80px rgba(var(--anim-color),0.2); }
+    55% { opacity:1; transform: scale(1) translateY(0);
+          box-shadow: 0 0 40px rgba(var(--anim-color),0.5), 0 0 80px rgba(var(--anim-color),0.2); }
+    70% { opacity:1; transform: scale(0.9) translateY(-30px);
+          filter: brightness(1.3) saturate(0.8);
+          box-shadow: 0 0 60px rgba(var(--anim-color),0.7); }
+    85% { opacity:0; transform: scale(0.5) translateY(-80px);
+          filter: brightness(1.8) saturate(0.3);
+          box-shadow: 0 0 80px rgba(var(--anim-color),0.9); }
+    100%{ opacity:0; transform: scale(0.3) translateY(-100px); }
+  }
+
+  /* ── Sparkles ──────────────────────────────────────── */
+  .sparkles {
+    position: absolute; width: 300px; height: 300px;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    z-index: 20; pointer-events: none;
+  }
+  .spark {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: rgb(var(--anim-color)); opacity: 0;
+    box-shadow: 0 0 6px rgb(var(--anim-color)), 0 0 12px rgba(var(--anim-color),0.5);
+  }
+  .playing .spark { animation: sparkle 1.8s ease-out forwards; }
+  .spark:nth-child(1)  { top:50%; left:50%; --tx:-80px; --ty:-90px; }
+  .spark:nth-child(2)  { top:50%; left:50%; --tx: 70px; --ty:-85px; }
+  .spark:nth-child(3)  { top:50%; left:50%; --tx:-95px; --ty: 20px; }
+  .spark:nth-child(4)  { top:50%; left:50%; --tx: 90px; --ty: 30px; }
+  .spark:nth-child(5)  { top:50%; left:50%; --tx:-40px; --ty:-110px; }
+  .spark:nth-child(6)  { top:50%; left:50%; --tx: 50px; --ty:-100px; }
+  .spark:nth-child(7)  { top:50%; left:50%; --tx:-110px;--ty:-30px; }
+  .spark:nth-child(8)  { top:50%; left:50%; --tx: 100px;--ty:-10px; }
+  .spark:nth-child(9)  { top:50%; left:50%; --tx:-60px; --ty: 80px; }
+  .spark:nth-child(10) { top:50%; left:50%; --tx: 65px; --ty: 75px; }
+  .spark:nth-child(11) { top:50%; left:50%; --tx:-30px; --ty:-130px; background:#fff; box-shadow:0 0 6px #fff; }
+  .spark:nth-child(12) { top:50%; left:50%; --tx: 35px; --ty:-120px; background:#fff; box-shadow:0 0 6px #fff; }
+  .playing .spark:nth-child(1)  { animation-delay:0.80s; }
+  .playing .spark:nth-child(2)  { animation-delay:0.85s; }
+  .playing .spark:nth-child(3)  { animation-delay:0.90s; }
+  .playing .spark:nth-child(4)  { animation-delay:0.95s; }
+  .playing .spark:nth-child(5)  { animation-delay:1.00s; }
+  .playing .spark:nth-child(6)  { animation-delay:1.05s; }
+  .playing .spark:nth-child(7)  { animation-delay:1.10s; }
+  .playing .spark:nth-child(8)  { animation-delay:1.15s; }
+  .playing .spark:nth-child(9)  { animation-delay:1.20s; }
+  .playing .spark:nth-child(10) { animation-delay:1.25s; }
+  .playing .spark:nth-child(11) { animation-delay:1.00s; }
+  .playing .spark:nth-child(12) { animation-delay:1.10s; }
+  @keyframes sparkle {
+    0%  { opacity:0; transform:translate(0,0) scale(0); }
+    20% { opacity:1; transform:translate(calc(var(--tx)*0.3),calc(var(--ty)*0.3)) scale(1.5); }
+    100%{ opacity:0; transform:translate(var(--tx),var(--ty)) scale(0); }
+  }
+
+  /* ── Article Name ──────────────────────────────────── */
+  .artifact-name {
+    position: absolute; top: 55px; left: 50%;
+    transform: translateX(-50%); opacity: 0; z-index: 30;
+    text-align: center; white-space: nowrap;
+  }
+  .artifact-name .name-main {
+    font-size: 20px; font-weight: 700;
+    color: rgba(var(--anim-color),0.9); letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(var(--anim-color),0.4);
+  }
+  .artifact-name .name-location {
+    font-size: 12px; font-weight: 400;
+    color: rgba(180,200,220,0.5); letter-spacing: 1.5px; margin-top: 4px;
+  }
+  .playing .artifact-name { animation: puNameAppear 4s ease-out 1.3s forwards; }
+  @keyframes puNameAppear {
+    0%  { opacity:0; transform:translateX(-50%) translateY(10px); }
+    15% { opacity:1; transform:translateX(-50%) translateY(0); }
+    55% { opacity:1; }
+    75% { opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* ── Badge ─────────────────────────────────────────── */
+  .badge {
+    position: absolute; bottom: 70px; left: 50%;
+    transform: translateX(-50%) scale(0) translateY(20px);
+    opacity: 0; z-index: 30; text-align: center;
+  }
+  .playing .badge { animation: puBadgeReveal 3.5s cubic-bezier(0.34,1.56,0.64,1) 1.5s forwards; }
+  .badge-symbol {
+    font-size: 36px; display: block; margin-bottom: 6px;
+    filter: drop-shadow(0 0 12px rgba(var(--anim-color),0.5));
+  }
+  .badge-text {
+    font-size: 22px; font-weight: 700; letter-spacing: 6px;
+    color: rgb(var(--anim-color));
+    text-shadow: 0 0 20px rgba(var(--anim-color),0.5), 0 2px 10px rgba(0,0,0,0.5);
+    text-transform: uppercase;
+  }
+  @keyframes puBadgeReveal {
+    0%  { opacity:0; transform:translateX(-50%) scale(0) translateY(20px); }
+    12% { opacity:1; transform:translateX(-50%) scale(1.1) translateY(0); }
+    20% { opacity:1; transform:translateX(-50%) scale(1) translateY(0); }
+    55% { opacity:1; transform:translateX(-50%) scale(1) translateY(0); }
+    75% { opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* ── Article Thumbnail (lingers after main fades) */
+  .article-thumb {
+    position: absolute;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%) scale(0);
+    width: 84px; height: 84px;
+    border-radius: 12px; object-fit: cover;
+    opacity: 0; z-index: 25;
+    border: 2px solid rgba(var(--anim-color),0.5);
+    box-shadow: 0 0 16px rgba(var(--anim-color),0.3), 0 0 30px rgba(var(--anim-color),0.1);
+  }
+  .playing .article-thumb {
+    animation: thumbAppear 2s cubic-bezier(0.34,1.56,0.64,1) 3.5s forwards;
+  }
+  @keyframes thumbAppear {
+    0%  { opacity:0; transform:translateX(-50%) scale(0); }
+    30% { opacity:1; transform:translateX(-50%) scale(1.15); }
+    50% { opacity:1; transform:translateX(-50%) scale(1); }
+    100%{ opacity:0.85; transform:translateX(-50%) scale(1); }
+  }
+
+  /* ── Info ───────────────────────────────────────────── */
+  .info {
+    position: fixed; bottom: 20px; color: #444;
+    font-size: 12px; text-align: center; line-height: 1.6;
+  }
+  .info code {
+    background: rgba(78,200,120,0.1); color: #5a8;
+    padding: 2px 6px; border-radius: 3px; font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button onclick="playAnimation()">&#9654; Play Item Recovery</button>
+  <button onclick="resetAnimation()">&#8635; Reset</button>
+  <span class="label">~5s &bull; agent picks up item &bull; lifts into inventory</span>
+</div>
+
+<div class="stage" id="stage">
+  <div class="tl-backdrop" id="tlBackdrop">
+    <img src="../../img/TL503Pic.png" alt="London 1530 AD"
+         onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1520,#0a0a12)';" />
+  </div>
+  <div class="tl-label">London — 1530 AD</div>
+  <div class="bg-pulse"></div>
+  <div class="ground-glow"></div>
+  <div class="energy-beam"></div>
+  <div class="energy-beam"></div>
+  <div class="energy-beam"></div>
+  <div class="artifact-wrap">
+    <img class="artifact-img" src="../../img/ART103.png" alt="Henry VIII Armour"
+         onerror="this.style.background='linear-gradient(135deg,#1a2a3e,#1a1a2e)';this.style.opacity=1;" />
+  </div>
+  <div class="sparkles">
+    <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+    <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+    <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+    <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+  </div>
+  <div class="artifact-name">
+    <div class="name-main">&#x1F4E6; Henry VIII Armour</div>
+    <div class="name-location">London &bull; 1530 AD &bull; Ring 1</div>
+  </div>
+  <!-- Article thumbnail (lingers at bottom) -->
+  <img class="article-thumb" src="../../img/ART103.png" alt="Henry VIII Armour" />
+
+  <div class="badge">
+    <span class="badge-symbol">&#x1F4E6;</span>
+    <div class="badge-text">Recovered</div>
+  </div>
+</div>
+
+<div class="info">
+  Item Recovery &bull; Green theme &bull; Article lifts upward into agent inventory<br>
+  <code>ART103.png</code> Henry VIII Armour &bull; No kairos/blots reward
+</div>
+
+<script>
+  function playAnimation() {
+    const stage = document.getElementById('stage');
+    stage.classList.remove('playing');
+    void stage.offsetWidth;
+    stage.classList.add('playing');
+    setTimeout(() => document.getElementById('tlBackdrop').classList.add('vignette-lift'), 3200);
+  }
+  function resetAnimation() {
+    document.getElementById('stage').classList.remove('playing');
+    document.getElementById('tlBackdrop').classList.remove('vignette-lift');
+  }
+  setTimeout(playAnimation, 500);
+</script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kairos — Dice Reference</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #06080f;
+      color: #c8d8e8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 15% 20%, rgba(20,40,120,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%, rgba(60,10,80,0.2) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(0,80,100,0.1) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ─── Nav ─── */
+    .site-nav {
+      position: relative; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px;
+      padding: 14px 28px;
+      background: rgba(4,6,16,0.95);
+      border-bottom: 1px solid rgba(80,200,220,0.2);
+    }
+    .site-nav .nav-logo { font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; color: #50c8dc; text-decoration: none; font-weight: bold; }
+    .site-nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    .site-nav .nav-links a { font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: #607880; text-decoration: none; transition: color 0.2s; }
+    .site-nav .nav-links a:hover, .site-nav .nav-links a.active { color: #50c8dc; }
+
+    /* ─── Hero ─── */
+    .page-hero {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 48px 20px 36px;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .page-hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9060a8; margin-bottom: 10px; }
+    .page-hero h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); letter-spacing: 0.1em; text-transform: uppercase; color: #50c8dc; text-shadow: 0 0 30px rgba(80,200,220,0.35); margin-bottom: 10px; }
+    .page-hero p { font-size: 0.88rem; color: #607880; line-height: 1.7; max-width: 560px; margin: 0 auto; font-style: italic; }
+
+    /* ─── Legend ─── */
+    .legend-section {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 36px auto 0; padding: 0 20px;
+    }
+    .legend-section h2 { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: #50c8dc; margin-bottom: 14px; text-align: center; }
+    .legend-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .legend-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 12px;
+      border-radius: 3px;
+      font-size: 0.76rem;
+      background: rgba(80,200,220,0.05);
+      border: 1px solid rgba(80,200,220,0.18);
+      color: #809098;
+    }
+    .legend-chip .lg-key {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px;
+      font-weight: bold; font-size: 0.85rem;
+      border-radius: 3px;
+      background: #0c1018;
+      border: 1px solid rgba(80,200,220,0.3);
+      color: #50c8dc;
+    }
+
+    /* ─── Dice Sections ─── */
+    .dice-wrap {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 36px auto 0; padding: 0 20px 60px;
+      display: flex; flex-direction: column; gap: 44px;
+    }
+    .dice-section-header {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .dice-section-header h2 { font-size: clamp(1rem, 2.5vw, 1.3rem); letter-spacing: 0.08em; text-transform: uppercase; }
+    .dice-section-header.travel h2 { color: #50c8dc; }
+    .dice-section-header.recovery h2 { color: #b080dc; }
+    .dice-section-header .count { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #405060; }
+    .dice-section-header .type-desc { font-size: 0.78rem; color: #506070; font-style: italic; flex: 1; }
+
+    .dice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .die-card {
+      background: rgba(10,14,24,0.7);
+      border: 1px solid rgba(80,200,220,0.12);
+      border-radius: 5px;
+      padding: 16px 16px 18px;
+    }
+    .die-card:hover { border-color: rgba(80,200,220,0.3); }
+    .die-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .die-swatch {
+      width: 20px; height: 20px; border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.25);
+      flex-shrink: 0;
+    }
+    .die-name { font-size: 0.98rem; font-weight: bold; letter-spacing: 0.06em; text-transform: uppercase; color: #c8d8e8; }
+    .die-role { font-size: 0.74rem; color: #607880; font-style: italic; margin-bottom: 12px; }
+    .die-faces {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+    }
+    .face {
+      aspect-ratio: 1 / 1;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 1rem;
+      border-radius: 4px;
+      background: #0c1018;
+      border: 1px solid rgba(80,200,220,0.22);
+      color: #c8d8e8;
+    }
+    /* face value colours */
+    .fv-num   { color: #50c8dc; }
+    .fv-wild  { color: #b878e0; background: rgba(120,80,160,0.18); }
+    .fv-skull { color: #dc5050; background: rgba(180,40,40,0.15); }
+    .fv-blank { color: #344050; }
+    .fv-event { color: #e0c050; background: rgba(180,150,40,0.12); }
+    .fv-neg   { color: #50dc80; background: rgba(60,180,100,0.15); }
+    .fv-haz   { color: #ff7050; background: rgba(200,70,40,0.15); }
+    .fv-a { color: #e0c050; }
+    .fv-s { color: #e07070; }
+    .fv-c { color: #60d0a0; }
+    .fv-p { color: #70a8e0; }
+    .fv-m { color: #e8a040; }
+    .fv-h { color: #d8d8d8; }
+
+    .section-note {
+      margin-top: 18px;
+      font-size: 0.78rem; line-height: 1.65; color: #506070; font-style: italic;
+      padding: 10px 14px;
+      border-left: 2px solid rgba(80,200,220,0.2);
+    }
+    .section-note.recovery-note { border-left-color: rgba(160,80,220,0.25); }
+
+    footer { position: relative; z-index: 1; text-align: center; padding: 20px; font-size: 0.7rem; color: #304050; letter-spacing: 0.1em; border-top: 1px solid rgba(80,200,220,0.08); }
+    @media (max-width: 640px) {
+      .site-nav { flex-direction: column; gap: 10px; }
+      .dice-section-header { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">⧖ Kairos</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Tutorial Series</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="dice.html" class="active">Dice</a></li>
+    <li><a href="processes.html">Processes</a></li>
+    <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Reference Guide</div>
+  <h1>Dice</h1>
+  <p>Every die in Kairos and its six faces — Travel Dice for moving through time, Recovery Dice for restoring articles</p>
+</div>
+
+<!-- Travel Legend -->
+<div class="legend-section">
+  <h2>Travel Face Legend</h2>
+  <div class="legend-grid">
+    <span class="legend-chip"><span class="lg-key fv-num">6</span> Ring / Planet value</span>
+    <span class="legend-chip"><span class="lg-key fv-num">1</span> Base / Direction value</span>
+    <span class="legend-chip"><span class="lg-key fv-wild">*</span> Wild — substitutes any need</span>
+    <span class="legend-chip"><span class="lg-key fv-skull">X</span> Skull — two = fail</span>
+    <span class="legend-chip"><span class="lg-key fv-neg">!</span> Negate — cancels one skull</span>
+    <span class="legend-chip"><span class="lg-key fv-blank">0</span> Blank — no result</span>
+    <span class="legend-chip"><span class="lg-key fv-event">$</span> Event — triggers an Event</span>
+    <span class="legend-chip"><span class="lg-key fv-haz">+</span> Hazard cross</span>
+  </div>
+</div>
+
+<div class="dice-wrap">
+
+  <!-- ─── TRAVEL DICE ─── -->
+  <div class="dice-section">
+    <div class="dice-section-header travel">
+      <h2>Travel Dice</h2>
+      <span class="count">9 dice</span>
+      <span class="type-desc">Rolled when an agent time-travels — the destination determines which dice enter the pool</span>
+    </div>
+    <div class="dice-grid">
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#d98a1a"></span><span class="die-name">Ring</span></div>
+        <div class="die-role">Orange · matches the destination's ring band</div>
+        <div class="die-faces">
+          <span class="face fv-num">6</span><span class="face fv-num">6</span><span class="face fv-num">7</span>
+          <span class="face fv-num">8</span><span class="face fv-skull">X</span><span class="face fv-blank">0</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#1c1c1c"></span><span class="die-name">Direction</span></div>
+        <div class="die-role">Black · matches the travel direction</div>
+        <div class="die-faces">
+          <span class="face fv-num">2</span><span class="face fv-num">2</span><span class="face fv-num">3</span>
+          <span class="face fv-skull">X</span><span class="face fv-blank">0</span><span class="face fv-wild">*</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#2c8a2c"></span><span class="die-name">Base</span></div>
+        <div class="die-role">Green · the time-reference / base die</div>
+        <div class="die-faces">
+          <span class="face fv-num">1</span><span class="face fv-num">1</span><span class="face fv-num">1</span>
+          <span class="face fv-num">1</span><span class="face fv-blank">0</span><span class="face fv-wild">*</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#3060c8"></span><span class="die-name">Portal</span></div>
+        <div class="die-role">Blue · bonus — starting next to a portal</div>
+        <div class="die-faces">
+          <span class="face fv-wild">*</span><span class="face fv-wild">*</span><span class="face fv-wild">*</span>
+          <span class="face fv-wild">*</span><span class="face fv-blank">0</span><span class="face fv-skull">X</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#dde2e8"></span><span class="die-name">Planet</span></div>
+        <div class="die-role">White · the destination / planet die</div>
+        <div class="die-faces">
+          <span class="face fv-num">5</span><span class="face fv-num">5</span><span class="face fv-num">4</span>
+          <span class="face fv-skull">X</span><span class="face fv-blank">0</span><span class="face fv-wild">*</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#d8c020"></span><span class="die-name">Adjacent</span></div>
+        <div class="die-role">Yellow · bonus — destination is adjacent</div>
+        <div class="die-faces">
+          <span class="face fv-neg">!</span><span class="face fv-neg">!</span><span class="face fv-wild">*</span>
+          <span class="face fv-wild">*</span><span class="face fv-blank">0</span><span class="face fv-wild">*</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#3aa0c0"></span><span class="die-name">TimeLord</span></div>
+        <div class="die-role">Bonus wilds — TimeLord agents only</div>
+        <div class="die-faces">
+          <span class="face fv-wild">*</span><span class="face fv-wild">*</span><span class="face fv-wild">*</span>
+          <span class="face fv-wild">*</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#a02020"></span><span class="die-name">Baal</span></div>
+        <div class="die-role">Hazard die — added when timeline ≤ −6</div>
+        <div class="die-faces">
+          <span class="face fv-haz">+</span><span class="face fv-haz">+</span><span class="face fv-blank">0</span>
+          <span class="face fv-blank">0</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#7a3aa0"></span><span class="die-name">Alpha</span></div>
+        <div class="die-role">AutoAlpha bonus die — 2 wilds, 1 event</div>
+        <div class="die-faces">
+          <span class="face fv-wild">*</span><span class="face fv-wild">*</span><span class="face fv-event">$</span>
+          <span class="face fv-blank">0</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="section-note">
+      The destination always contributes a Ring, Base and Planet die; the Direction die is added only when the trip crosses eras. Portal, Adjacent, TimeLord and Baal dice join the pool conditionally. The player rolls up to four times, locking dice between rolls. Wilds substitute for any required value — two skulls means the trip fails.
+    </div>
+  </div>
+
+  <!-- Recovery Legend -->
+  <div class="legend-section" style="margin-top:0;">
+    <h2>Recovery Face Legend</h2>
+    <div class="legend-grid">
+      <span class="legend-chip"><span class="lg-key fv-a">A</span> Archaeology</span>
+      <span class="legend-chip"><span class="lg-key fv-s">S</span> Security</span>
+      <span class="legend-chip"><span class="lg-key fv-c">C</span> Cyber</span>
+      <span class="legend-chip"><span class="lg-key fv-p">P</span> Psychic</span>
+      <span class="legend-chip"><span class="lg-key fv-m">M</span> Medical</span>
+      <span class="legend-chip"><span class="lg-key fv-h">H</span> Historian</span>
+      <span class="legend-chip"><span class="lg-key fv-wild">*</span> Wild</span>
+      <span class="legend-chip"><span class="lg-key fv-event">$</span> Event</span>
+      <span class="legend-chip"><span class="lg-key fv-blank">0</span> Blank</span>
+      <span class="legend-chip"><span class="lg-key fv-haz">+</span> Hazard</span>
+    </div>
+  </div>
+
+  <!-- ─── RECOVERY DICE ─── -->
+  <div class="dice-section">
+    <div class="dice-section-header recovery">
+      <h2>Recovery Dice</h2>
+      <span class="count">8 dice</span>
+      <span class="type-desc">Rolled when recovering an article — the article's required factors determine the pool</span>
+    </div>
+    <div class="dice-grid">
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#cc2222"></span><span class="die-name">Red</span></div>
+        <div class="die-role">Colour die · covers A·S·C·P·M factors</div>
+        <div class="die-faces">
+          <span class="face fv-a">A</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
+          <span class="face fv-p">P</span><span class="face fv-m">M</span><span class="face fv-event">$</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#1a5fb4"></span><span class="die-name">Blue</span></div>
+        <div class="die-role">Colour die · covers A·S·C·P·H factors</div>
+        <div class="die-faces">
+          <span class="face fv-a">A</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
+          <span class="face fv-p">P</span><span class="face fv-event">$</span><span class="face fv-h">H</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#228b22"></span><span class="die-name">Green</span></div>
+        <div class="die-role">Colour die · A·S·C·P·H plus a Wild</div>
+        <div class="die-faces">
+          <span class="face fv-a">A</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
+          <span class="face fv-p">P</span><span class="face fv-wild">*</span><span class="face fv-h">H</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#1c1c1c"></span><span class="die-name">Black</span></div>
+        <div class="die-role">Colour die · S·C·P·H plus Wild &amp; Event</div>
+        <div class="die-faces">
+          <span class="face fv-wild">*</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
+          <span class="face fv-p">P</span><span class="face fv-event">$</span><span class="face fv-h">H</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#dde2e8"></span><span class="die-name">White</span></div>
+        <div class="die-role">Colour die · A·S·C·P·M plus a Wild</div>
+        <div class="die-faces">
+          <span class="face fv-a">A</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
+          <span class="face fv-p">P</span><span class="face fv-m">M</span><span class="face fv-wild">*</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#3aa0c0"></span><span class="die-name">TimeLord</span></div>
+        <div class="die-role">Bonus die — TimeLord agents · 2 wilds</div>
+        <div class="die-faces">
+          <span class="face fv-m">M</span><span class="face fv-c">C</span><span class="face fv-p">P</span>
+          <span class="face fv-h">H</span><span class="face fv-wild">*</span><span class="face fv-wild">*</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#a02020"></span><span class="die-name">Baal</span></div>
+        <div class="die-role">Hazard die — added when timeline ≤ −6</div>
+        <div class="die-faces">
+          <span class="face fv-haz">+</span><span class="face fv-haz">+</span><span class="face fv-blank">0</span>
+          <span class="face fv-blank">0</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#7a3aa0"></span><span class="die-name">Alpha</span></div>
+        <div class="die-role">AutoAlpha bonus die — 2 wilds, 1 event</div>
+        <div class="die-faces">
+          <span class="face fv-wild">*</span><span class="face fv-wild">*</span><span class="face fv-event">$</span>
+          <span class="face fv-blank">0</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="section-note recovery-note">
+      Each article lists the recovery factors it requires (Archaeology, Security, Cyber, Psychic, Medical, Historian). Colour dice are selected so the pool can cover every required factor, with TimeLord, Baal and Alpha bonus dice added when applicable. The player rolls up to four times and locks dice between rolls; wilds substitute for any factor.
+    </div>
+  </div>
+
+</div>
+
+<footer>KAIROS — THE TIME TRAVEL GAME &nbsp;·&nbsp; Board Game Arena &nbsp;·&nbsp; Dice Reference</footer>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video 7 — Events, Jail, and Lost in Time</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Georgia', 'Times New Roman', serif; background-color: #06080f; color: #c8d8e8; min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(ellipse at 15% 20%, rgba(20,40,120,0.25) 0%, transparent 55%), radial-gradient(ellipse at 85% 75%, rgba(60,10,80,0.2) 0%, transparent 55%), radial-gradient(ellipse at 50% 50%, rgba(0,80,100,0.1) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+    .site-nav { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; gap: 32px; padding: 14px 28px; background: rgba(4,6,16,0.95); border-bottom: 1px solid rgba(80,200,220,0.2); }
+    .site-nav .nav-logo { font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; color: #50c8dc; text-decoration: none; font-weight: bold; }
+    .site-nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    .site-nav .nav-links a { font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: #607880; text-decoration: none; transition: color 0.2s; }
+    .site-nav .nav-links a:hover { color: #50c8dc; }
+    .page-hero { position: relative; z-index: 1; text-align: center; padding: 48px 20px 36px; border-bottom: 1px solid rgba(80,200,220,0.15); }
+    .video-num-badge { display: inline-block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: #9060a8; margin-bottom: 10px; }
+    .page-hero h1 { font-size: clamp(1.3rem, 4vw, 2rem); letter-spacing: 0.06em; text-transform: uppercase; color: #50c8dc; text-shadow: 0 0 30px rgba(80,200,220,0.35); margin-bottom: 10px; }
+    .page-hero .meta { font-size: 0.78rem; color: #607880; letter-spacing: 0.08em; text-transform: uppercase; }
+    .page-hero .meta span { color: #50c8dc; }
+    .video-wrap { position: relative; z-index: 1; max-width: 860px; margin: 36px auto 0; padding: 0 20px; }
+    .yt-embed { position: relative; width: 100%; padding-bottom: 56.25%; background: #030508; border: 1px solid rgba(80,200,220,0.2); border-radius: 4px; overflow: hidden; }
+    .yt-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .yt-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #304050; text-align: center; padding: 20px; }
+    .yt-placeholder .play-icon { font-size: 3rem; opacity: 0.3; }
+    .yt-placeholder p { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.6; }
+    .content-wrap { position: relative; z-index: 1; max-width: 860px; margin: 36px auto 0; padding: 0 20px 60px; display: flex; flex-direction: column; gap: 28px; }
+    .section-block { border: 1px solid rgba(80,200,220,0.12); border-radius: 4px; background: rgba(8,12,24,0.7); padding: 24px 26px; }
+    .section-block h2 { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #50c8dc; margin-bottom: 14px; }
+    .section-block p { font-size: 0.88rem; line-height: 1.78; color: #8098a8; }
+    .section-block ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .section-block ul li { font-size: 0.86rem; line-height: 1.65; color: #8098a8; padding-left: 16px; position: relative; }
+    .section-block ul li::before { content: '▸'; position: absolute; left: 0; color: #50c8dc; font-size: 0.7rem; top: 3px; }
+    .event-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 4px; }
+    .event-card { border-radius: 3px; padding: 14px 15px; }
+    .event-card.travel { background: rgba(80,150,220,0.06); border: 1px solid rgba(80,150,220,0.25); }
+    .event-card.recovery { background: rgba(220,150,50,0.06); border: 1px solid rgba(220,150,50,0.25); }
+    .event-card.keep { background: rgba(80,200,220,0.06); border: 1px solid rgba(80,200,220,0.25); }
+    .event-card .ec-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: bold; margin-bottom: 6px; }
+    .event-card.travel .ec-label { color: #6090dc; }
+    .event-card.recovery .ec-label { color: #dcaa50; }
+    .event-card.keep .ec-label { color: #50c8dc; }
+    .event-card p { font-size: 0.78rem; line-height: 1.6; color: #607080; }
+    .topics { display: flex; flex-wrap: wrap; gap: 6px; }
+    .topic-chip { font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 2px; background: rgba(80,200,220,0.06); border: 1px solid rgba(80,200,220,0.18); color: #5090a0; }
+    .nav-row { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 20px 50px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .nav-btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 20px; border: 1px solid rgba(80,200,220,0.28); border-radius: 3px; color: #50c8dc; text-decoration: none; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(80,200,220,0.05); transition: background 0.2s; }
+    .nav-btn:hover { background: rgba(80,200,220,0.12); }
+    .nav-btn.home { color: #9060a8; border-color: rgba(144,96,168,0.35); background: rgba(144,96,168,0.05); }
+    .nav-btn.home:hover { background: rgba(144,96,168,0.12); }
+    footer { position: relative; z-index: 1; text-align: center; padding: 20px; font-size: 0.7rem; color: #304050; letter-spacing: 0.1em; border-top: 1px solid rgba(80,200,220,0.08); }
+    @media (max-width: 640px) { .site-nav { flex-direction: column; gap: 10px; } .nav-row { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">⧖ Kairos</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Tutorial Series</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="dice.html">Dice</a></li>
+    <li><a href="processes.html">Processes</a></li>
+    <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="video-num-badge">Video 7 of 8 &nbsp;·&nbsp; ~10 minutes</div>
+  <h1>Events, Jail, and Lost in Time</h1>
+  <div class="meta">Runtime: <span>~10 minutes</span> &nbsp;·&nbsp; Topic: <span>Event Cards, KEEP Cards, Escapes</span></div>
+</div>
+
+<div class="video-wrap">
+  <div class="yt-embed">
+    <!-- Replace this placeholder with your YouTube embed once the video is uploaded:
+         <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Kairos Video 7" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    -->
+    <div class="yt-placeholder">
+      <div class="play-icon">▶</div>
+      <p>Video coming soon<br>Upload to YouTube, then embed here</p>
+    </div>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="section-block">
+    <h2>What This Video Covers</h2>
+    <p>
+      Skull faces on travel dice trigger Event cards — the game's chaos engine. 40 travel events
+      range from sending agents to Xanadu Jail to full wipes and blot additions, but also include
+      powerful upgrades and blot removals. 18 Recovery Events fire when special faces appear during
+      article recovery. Some cards are KEEP cards held in hand as insurance against future bad luck.
+      The Hazard Die adds extra jeopardy when the timeline falls dangerously low.
+    </p>
+  </div>
+
+  <div class="section-block">
+    <h2>The Three Event Types</h2>
+    <div class="event-grid">
+      <div class="event-card travel">
+        <div class="ec-label">Travel Events (40 cards)</div>
+        <p>Triggered by skull faces during travel dice rolls. Effects range from Jail, Lost in Time, and blot additions to bonus Kairos, upgrades, and blot removals.</p>
+      </div>
+      <div class="event-card recovery">
+        <div class="ec-label">Recovery Events (18 cards)</div>
+        <p>Triggered by special $ faces during article recovery. Separate deck with its own range of setbacks and rewards.</p>
+      </div>
+      <div class="event-card keep">
+        <div class="ec-label">KEEP Cards</div>
+        <p>Some event cards are marked KEEP — hold them in hand instead of discarding. Play them at any time to counter a specific bad outcome or unlock a bonus action.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Jail and Lost in Time</h2>
+    <ul>
+      <li><strong>Xanadu Jail:</strong> Agent is sent to the Xanadu hex and cannot take normal actions. Escape options: spend a turn rolling to meet a specific dice result, use a KEEP card that frees agents, or have another agent perform a Rescue action at the same hex.</li>
+      <li><strong>Lost in Time (LIT):</strong> A more severe state — agent is removed from the board and cannot act at all. Only a TimeLord using the Rescue action (Video 4) can bring them back. Until rescued, the team effectively plays with one fewer agent.</li>
+      <li><strong>Urgency:</strong> Both states waste turns and reduce the team's action economy. Prioritise escape before attempting new recoveries or travel.</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>The Hazard Die</h2>
+    <ul>
+      <li><strong>Trigger:</strong> Added to all travel dice rolls when the Main Timeline drops to -6 or below.</li>
+      <li><strong>Effect:</strong> If the Hazard Die shows a miss face, the agent loses their turn entirely — even if they met all four travel requirements.</li>
+      <li><strong>Immunity:</strong> TimeLords are immune to the Hazard Die's miss effect (another reason to unlock the upgrade before the timeline falls).</li>
+      <li><strong>Removal:</strong> The Hazard Die disappears if the Main Timeline is pushed back above -6 — crystal strategy directly counteracts it.</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>Topics in This Video</h2>
+    <div class="topics">
+      <span class="topic-chip">Travel Events</span>
+      <span class="topic-chip">Recovery Events</span>
+      <span class="topic-chip">KEEP Cards</span>
+      <span class="topic-chip">Xanadu Jail</span>
+      <span class="topic-chip">Lost in Time</span>
+      <span class="topic-chip">Escape Options</span>
+      <span class="topic-chip">Hazard Die</span>
+      <span class="topic-chip">Skull Faces</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-row">
+  <a href="video6.html" class="nav-btn">◀ Video 6</a>
+  <a href="index.html" class="nav-btn home">⧖ All Videos</a>
+  <a href="video8.html" class="nav-btn">Video 8 ▶</a>
+</div>
+
+<footer>KAIROS — THE TIME TRAVEL GAME &nbsp;·&nbsp; Board Game Arena &nbsp;·&nbsp; Tutorial Series</footer>
+</body>
+</html>

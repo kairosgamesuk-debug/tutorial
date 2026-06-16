@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kairos — Game Processes</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #06080f;
+      color: #c8d8e8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 15% 20%, rgba(20,40,120,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%, rgba(60,10,80,0.2) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(0,80,100,0.1) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ─── Nav ─── */
+    .site-nav {
+      position: relative; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px;
+      padding: 14px 28px;
+      background: rgba(4,6,16,0.95);
+      border-bottom: 1px solid rgba(80,200,220,0.2);
+    }
+    .site-nav .nav-logo { font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; color: #50c8dc; text-decoration: none; font-weight: bold; }
+    .site-nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    .site-nav .nav-links a { font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: #607880; text-decoration: none; transition: color 0.2s; }
+    .site-nav .nav-links a:hover, .site-nav .nav-links a.active { color: #50c8dc; }
+
+    /* ─── Hero ─── */
+    .page-hero {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 48px 20px 36px;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .page-hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9060a8; margin-bottom: 10px; }
+    .page-hero h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); letter-spacing: 0.1em; text-transform: uppercase; color: #50c8dc; text-shadow: 0 0 30px rgba(80,200,220,0.35); margin-bottom: 10px; }
+    .page-hero p { font-size: 0.88rem; color: #607880; line-height: 1.7; max-width: 560px; margin: 0 auto; font-style: italic; }
+
+    /* ─── Process Sections ─── */
+    .proc-wrap {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 36px auto 0; padding: 0 20px 60px;
+      display: flex; flex-direction: column; gap: 44px;
+    }
+    .proc-section-header {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .proc-section-header h2 { font-size: clamp(1rem, 2.5vw, 1.3rem); letter-spacing: 0.08em; text-transform: uppercase; }
+    .proc-section-header.travel h2 { color: #50c8dc; }
+    .proc-section-header.recovery h2 { color: #b080dc; }
+    .proc-section-header.kronos h2 { color: #dc7050; }
+    .proc-section-header .tag { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #405060; }
+
+    .proc-intro { font-size: 0.9rem; line-height: 1.75; color: #97a8b4; margin-bottom: 18px; }
+
+    /* Step list */
+    .step-list { display: flex; flex-direction: column; gap: 12px; }
+    .step {
+      display: flex; gap: 14px;
+      background: rgba(10,14,24,0.65);
+      border: 1px solid rgba(80,200,220,0.1);
+      border-radius: 5px;
+      padding: 14px 16px;
+    }
+    .step:hover { border-color: rgba(80,200,220,0.25); }
+    .step-num {
+      flex-shrink: 0;
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 0.95rem;
+      border-radius: 50%;
+      background: rgba(80,200,220,0.1);
+      border: 1px solid rgba(80,200,220,0.3);
+      color: #50c8dc;
+    }
+    .recovery .step-num { background: rgba(160,80,220,0.1); border-color: rgba(160,80,220,0.3); color: #b878e0; }
+    .kronos .step-num { background: rgba(220,110,80,0.12); border-color: rgba(220,110,80,0.35); color: #dc7050; }
+    .step-body { flex: 1; }
+    .step-body h3 { font-size: 0.92rem; letter-spacing: 0.04em; text-transform: uppercase; color: #c8d8e8; margin-bottom: 6px; }
+    .step-body p { font-size: 0.84rem; line-height: 1.65; color: #809098; }
+
+    /* Modifier table */
+    .mod-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 10px; }
+    .mod-table th {
+      text-align: left; padding: 8px 10px;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #405060;
+      border-bottom: 1px solid rgba(220,110,80,0.18);
+    }
+    .mod-table td { padding: 7px 10px; border-bottom: 1px solid rgba(80,200,220,0.06); }
+    .mod-val { font-weight: bold; }
+    .mod-pos { color: #dc6850; }
+    .mod-neg { color: #50c8dc; }
+
+    .section-note {
+      margin-top: 16px;
+      font-size: 0.78rem; line-height: 1.65; color: #506070; font-style: italic;
+      padding: 10px 14px;
+      border-left: 2px solid rgba(80,200,220,0.2);
+    }
+    .section-note.recovery-note { border-left-color: rgba(160,80,220,0.25); }
+    .section-note.kronos-note { border-left-color: rgba(220,110,80,0.25); }
+
+    .pool-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 2px; }
+    .pool-tag {
+      font-size: 0.7rem; font-weight: bold;
+      padding: 2px 8px; border-radius: 3px;
+      letter-spacing: 0.04em;
+      background: rgba(80,200,220,0.08);
+      border: 1px solid rgba(80,200,220,0.22);
+      color: #80b0bc;
+    }
+    .pool-tag.bonus { background: rgba(160,80,220,0.08); border-color: rgba(160,80,220,0.22); color: #a888c8; }
+
+    footer { position: relative; z-index: 1; text-align: center; padding: 20px; font-size: 0.7rem; color: #304050; letter-spacing: 0.1em; border-top: 1px solid rgba(80,200,220,0.08); }
+    @media (max-width: 640px) {
+      .site-nav { flex-direction: column; gap: 10px; }
+      .proc-section-header { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">⧖ Kairos</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Tutorial Series</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="dice.html">Dice</a></li>
+    <li><a href="processes.html" class="active">Processes</a></li>
+    <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Rules Explainer</div>
+  <h1>Game Processes</h1>
+  <p>How dice pools are built for travel and recovery — and the six phases of Kronos's end-of-round turn</p>
+</div>
+
+<div class="proc-wrap">
+
+  <!-- ─── TRAVEL DICE SELECTION ─── -->
+  <div class="proc-section">
+    <div class="proc-section-header travel">
+      <h2>Selecting Time-Travel Dice</h2>
+      <span class="tag">Agent Turn</span>
+    </div>
+    <p class="proc-intro">
+      When an agent time-travels, the game assembles a dice pool from the destination. The agent then rolls the pool, locking useful dice between rolls until the trip succeeds or fails.
+    </p>
+    <div class="step-list">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Core destination dice</h3>
+          <p>The destination always adds a Ring die, a Base die and a Planet die. A Direction die joins the pool only when the trip crosses between eras.</p>
+          <div class="pool-tags">
+            <span class="pool-tag">Ring</span><span class="pool-tag">Base</span>
+            <span class="pool-tag">Planet</span><span class="pool-tag">Direction (cross-era)</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Bonus dice</h3>
+          <p>Extra dice are granted by circumstance: a Portal die if the agent starts next to a portal, an Adjacency die if the destination is adjacent, a TimeLord die for TimeLord agents, and a Hazard (Baal) die whenever the Main Timeline is at −6 or lower.</p>
+          <div class="pool-tags">
+            <span class="pool-tag bonus">Portal</span><span class="pool-tag bonus">Adjacency</span>
+            <span class="pool-tag bonus">TimeLord</span><span class="pool-tag bonus">Hazard</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Roll and lock</h3>
+          <p>The player rolls the assembled pool up to four times, locking dice they want to keep between rolls. Wild faces substitute for any required value. Two skull faces mean the trip fails.</p>
+        </div>
+      </div>
+    </div>
+    <div class="section-note">
+      See the <a href="dice.html" style="color:#50c8dc;">Dice Reference</a> for every travel die and its six faces.
+    </div>
+  </div>
+
+  <!-- ─── RECOVERY DICE SELECTION ─── -->
+  <div class="proc-section recovery">
+    <div class="proc-section-header recovery">
+      <h2>Selecting Recovery Dice</h2>
+      <span class="tag">Agent Turn</span>
+    </div>
+    <p class="proc-intro">
+      When an agent attempts to recover an article, the dice pool is built from the article's required recovery factors — Archaeology, Security, Cyber, Psychic, Medical and Historian.
+    </p>
+    <div class="step-list">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Read the required factors</h3>
+          <p>Every Item, Crystal and Artifact lists the recovery factors needed to restore it. These determine which faces the dice pool must be able to produce.</p>
+          <div class="pool-tags">
+            <span class="pool-tag">A</span><span class="pool-tag">S</span><span class="pool-tag">C</span>
+            <span class="pool-tag">P</span><span class="pool-tag">M</span><span class="pool-tag">H</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Choose colour dice</h3>
+          <p>Colour dice (Red, Blue, Green, Black, White) are selected so the pool can cover every required factor between them. Each colour die carries a different mix of factor faces.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Add bonus dice</h3>
+          <p>A TimeLord die is added for TimeLord agents, a Hazard (Baal) die when the timeline is −6 or lower, and an Alpha die for the AutoAlpha bonus, as applicable.</p>
+          <div class="pool-tags">
+            <span class="pool-tag bonus">TimeLord</span><span class="pool-tag bonus">Hazard</span>
+            <span class="pool-tag bonus">Alpha</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Roll and lock</h3>
+          <p>The same mechanic applies — roll up to four times, locking dice between rolls. Wilds substitute for any factor until all required factors are matched.</p>
+        </div>
+      </div>
+    </div>
+    <div class="section-note recovery-note">
+      The <a href="articles.html" style="color:#b878e0;">Articles Reference</a> lists the required factors for every article in the game.
+    </div>
+  </div>
+
+  <!-- ─── KRONOS END OF ROUND ─── -->
+  <div class="proc-section kronos">
+    <div class="proc-section-header kronos">
+      <h2>End of Round — Kronos's Turn</h2>
+      <span class="tag">6 Phases</span>
+    </div>
+    <p class="proc-intro">
+      After all agents have acted, Kronos takes his turn. The six phases resolve in strict order, ending with win/loss checks.
+    </p>
+    <div class="step-list">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Steal</h3>
+          <p>Kronos rolls 2d6 for each artifact on the board and steals it on a total of 9 or higher, after modifiers:</p>
+          <table class="mod-table">
+            <thead><tr><th>Modifier</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Non-portal location</td><td class="mod-val mod-neg">−5</td></tr>
+              <tr><td>Ring 1 — adjacent to the Vortex</td><td class="mod-val mod-pos">+3</td></tr>
+              <tr><td>Difficulty — Hard / Easy</td><td class="mod-val">+2 Hard&nbsp;·&nbsp;−2 Easy</td></tr>
+              <tr><td>Crystal excess at HQ</td><td class="mod-val mod-pos">+ excess</td></tr>
+              <tr><td>Timeline tier (timeline ÷ 5, truncated)</td><td class="mod-val mod-pos">+ tier</td></tr>
+              <tr><td>Protected — agent present</td><td class="mod-val mod-neg">−4</td></tr>
+              <tr><td>Guarded</td><td class="mod-val mod-neg">−2</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Empower</h3>
+          <p>Artifacts that Kronos holds may become empowered. An empowered artifact deals more timeline damage than an ordinary one.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Timeline Control</h3>
+          <p>Each artifact Kronos holds pushes the Main Timeline down — by −1, or by −2 if that artifact is empowered.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Crystal Light</h3>
+          <p>Crystal Light uses a 3-tier system. Crystals deposited at HQ give a flat +1 to the timeline (+2 if empowered). Crystals in the field at their correct Time Location roll 2d6 vs a target of 9 — success gives +1. Crystals carried by agents or at wrong locations contribute nothing.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h3>Time Collapse</h3>
+          <p>Kronos may shorten the game by advancing the Singularity, bringing the final round closer.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <h3>Portal Rotation</h3>
+          <p>Active portals shift to new locations on the board, changing where agents can travel cheaply next round.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="section-note kronos-note">
+      The net timeline adjustment for the round is Timeline Control (Kronos's downward push) minus Crystal Light (the players' upward push). After the six phases resolve, the game checks the win and loss conditions: players win if the Main Timeline is positive and a player has cleared all blots; Kronos wins if the round limit is reached with the timeline still negative.
+    </div>
+  </div>
+
+</div>
+
+<footer>KAIROS — THE TIME TRAVEL GAME &nbsp;·&nbsp; Board Game Arena &nbsp;·&nbsp; Game Processes</footer>
+</body>
+</html>

@@ -136,7 +136,7 @@ The dice tray overlay (`#dice-tray-overlay` / `#dice-tray`) appears when time tr
 | `Wh` | Planet | **White — Planet Die** | Navigation die keyed to planetary alignment. Part of the standard travel pool. |
 | `Yl` | Adjacent | **Yellow — Adjacent Die** | Allows travel to tiles adjacent to the calculated destination. Provides flexibility in landing. |
 | `TL` | Timelord | **TL — TimeLord Die** | Extra die available only to TimeLord agents. Gives TimeLords greater travel range and flexibility. |
-| `Hz` | Baal | **Hazard — Baal Die** | Danger die. Can show a hazard cross (+) that triggers negative events during travel. Dark red colour. |
+| `Hz` | Hazard | **Hazard Die** | Danger die. Can show a hazard cross (+) that triggers negative events during travel. Dark red colour. |
 | `Pu` | Alpha | **Purple — Alpha Die** | Bonus die for AutoAlpha automata (3 wilds, 3 blanks). Boosts travel and recovery success rates. |
 
 ### Recovery Dice Colours
@@ -151,7 +151,7 @@ Recovery dice start black and take on the colour of their rolled face.
 | `Bk` | Black | **Black Recovery Die** | Standard recovery die. Same face pool as other recovery dice. |
 | `Wh` | White | **White Recovery Die** | Standard recovery die. Same face pool as other recovery dice. |
 | `TL` | TL | **TL — TimeLord Recovery Die** | Extra recovery die available only to TimeLord agents. Gives TimeLords better odds on recovery rolls. |
-| `Hz` | Baal | **Hazard — Baal Die** | Danger die in recovery. Can trigger negative events via the hazard cross (+). |
+| `Hz` | Hazard | **Hazard Die** | Danger die in recovery. Can trigger negative events via the hazard cross (+). |
 | `Pu` | Alpha | **Purple — Alpha Die** | Bonus recovery die for AutoAlpha automata (3 wilds, 3 blanks). Boosts recovery success rates. |
 
 ### Dice Faces (Special)
@@ -162,7 +162,7 @@ Recovery dice start black and take on the colour of their rolled face.
 | `X` | Skull | **Skull Face** | Bad result. Automatically locked and cannot be re-rolled. Skulls do not count toward requirements and may trigger penalties. |
 | `0` | Blank | **Blank Face** | No value. Does not match any requirement. Can be re-rolled on subsequent rolls. |
 | `$` | Event | **Event Face** | Triggers a random event card. Events can be positive, negative, or neutral. Resolved when the dice session ends. |
-| `+` | Hazard Cross | **Hazard Cross** | Appears on the Baal (Hazard) die only. Triggers a negative event — jail, lost in time, blots, paradox, or other penalties. |
+| `+` | Hazard Cross | **Hazard Cross** | Appears on the Hazard die only. Triggers a negative event — jail, lost in time, blots, paradox, or other penalties. |
 
 ### Recovery Specialist Factors
 

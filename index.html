@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kairos — The Time Travel Game | Play on Board Game Arena</title>
+  <title>Kairos — The Time Travel Game | Gameplay Recordings &amp; Reference</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Georgia', 'Times New Roman', serif;
@@ -20,9 +27,9 @@
       position: fixed;
       inset: 0;
       background-image:
-        radial-gradient(ellipse at 15% 20%, rgba(20,40,120,0.25) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 75%, rgba(60,10,80,0.2) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, rgba(0,80,100,0.1) 0%, transparent 70%);
+        radial-gradient(ellipse at 15% 20%, rgba(20, 40, 120, 0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%, rgba(60, 10, 80, 0.2) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(0, 80, 100, 0.1) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -36,9 +43,10 @@
       justify-content: center;
       gap: 32px;
       padding: 14px 28px;
-      background: rgba(4,6,16,0.95);
-      border-bottom: 1px solid rgba(80,200,220,0.2);
+      background: rgba(4, 6, 16, 0.95);
+      border-bottom: 1px solid rgba(80, 200, 220, 0.2);
     }
+
     .site-nav .nav-logo {
       font-size: 1rem;
       letter-spacing: 0.15em;
@@ -47,7 +55,13 @@
       text-decoration: none;
       font-weight: bold;
     }
-    .site-nav .nav-links { display: flex; gap: 28px; list-style: none; }
+
+    .site-nav .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
     .site-nav .nav-links a {
       font-size: 0.9rem;
       letter-spacing: 0.1em;
@@ -56,7 +70,11 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    .site-nav .nav-links a:hover, .site-nav .nav-links a.active { color: #50c8dc; }
+
+    .site-nav .nav-links a:hover,
+    .site-nav .nav-links a.active {
+      color: #50c8dc;
+    }
 
     /* ─── Hero ──────────────────────────────────────────────── */
     .hero {
@@ -64,8 +82,8 @@
       z-index: 1;
       text-align: center;
       padding: 60px 20px 40px;
-      border-bottom: 1px solid rgba(80,200,220,0.2);
-      background: linear-gradient(180deg, rgba(4,6,20,0.95) 0%, rgba(6,8,18,0.8) 100%);
+      border-bottom: 1px solid rgba(80, 200, 220, 0.2);
+      background: linear-gradient(180deg, rgba(4, 6, 20, 0.95) 0%, rgba(6, 8, 18, 0.8) 100%);
     }
 
     .hero-logo {
@@ -73,10 +91,10 @@
       height: 100px;
       object-fit: contain;
       border-radius: 8px;
-      border: 2px solid rgba(80,200,220,0.5);
+      border: 2px solid rgba(80, 200, 220, 0.5);
       margin: 0 auto 20px;
       display: block;
-      background: rgba(10,20,40,0.8);
+      background: rgba(10, 20, 40, 0.8);
     }
 
     .hero h1 {
@@ -84,9 +102,10 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #50c8dc;
-      text-shadow: 0 0 40px rgba(80,200,220,0.4);
+      text-shadow: 0 0 40px rgba(80, 200, 220, 0.4);
       margin-bottom: 6px;
     }
+
     .hero .subtitle-small {
       font-size: 0.85rem;
       letter-spacing: 0.2em;
@@ -94,6 +113,7 @@
       color: #9060a8;
       margin-bottom: 14px;
     }
+
     .hero .subtitle {
       font-size: clamp(0.82rem, 1.8vw, 1rem);
       color: #607888;
@@ -102,17 +122,22 @@
       margin: 0 auto 22px;
       line-height: 1.6;
     }
+
     .hero .series-meta {
       display: inline-flex;
       gap: 30px;
-      border: 1px solid rgba(80,200,220,0.2);
+      border: 1px solid rgba(80, 200, 220, 0.2);
       border-radius: 4px;
       padding: 10px 24px;
       font-size: 0.82rem;
       color: #607880;
       letter-spacing: 0.06em;
     }
-    .hero .series-meta span { color: #50c8dc; font-weight: bold; }
+
+    .hero .series-meta span {
+      color: #50c8dc;
+      font-weight: bold;
+    }
 
     /* ─── Intro ─────────────────────────────────────────────── */
     .intro-block {
@@ -125,7 +150,7 @@
       font-size: 0.92rem;
       line-height: 1.75;
       color: #8098a8;
-      border-bottom: 1px solid rgba(80,200,220,0.08);
+      border-bottom: 1px solid rgba(80, 200, 220, 0.08);
     }
 
     /* ─── Cards ─────────────────────────────────────────────── */
@@ -143,14 +168,17 @@
     .video-card {
       display: flex;
       flex-direction: column;
-      border: 1px solid rgba(80,200,220,0.18);
+      border: 1px solid rgba(80, 200, 220, 0.18);
       border-radius: 6px;
       overflow: hidden;
-      background: rgba(8,12,24,0.85);
-      box-shadow: 0 4px 40px rgba(0,0,0,0.6);
+      background: rgba(8, 12, 24, 0.85);
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
       transition: box-shadow 0.3s;
     }
-    .video-card:hover { box-shadow: 0 6px 50px rgba(80,200,220,0.1); }
+
+    .video-card:hover {
+      box-shadow: 0 6px 50px rgba(80, 200, 220, 0.1);
+    }
 
     .card-image {
       width: 100%;
@@ -159,6 +187,7 @@
       background: #06080f;
       position: relative;
     }
+
     .card-image img {
       width: 100%;
       height: 100%;
@@ -167,7 +196,11 @@
       opacity: 0.9;
       transition: opacity 0.3s, transform 0.4s;
     }
-    .video-card:hover .card-image img { opacity: 1; transform: scale(1.02); }
+
+    .video-card:hover .card-image img {
+      opacity: 1;
+      transform: scale(1.02);
+    }
 
     .card-body {
       padding: 26px 28px;
@@ -176,27 +209,49 @@
       gap: 13px;
     }
 
-    .card-header { display: flex; align-items: flex-start; gap: 14px; }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
 
     .video-number {
       flex-shrink: 0;
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1px solid rgba(80,200,220,0.45);
+      border: 1px solid rgba(80, 200, 220, 0.45);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.88rem;
       font-weight: bold;
       color: #50c8dc;
-      background: rgba(80,200,220,0.07);
+      background: rgba(80, 200, 220, 0.07);
       margin-top: 2px;
     }
-    .card-title-block { flex: 1; }
-    .card-title { font-size: clamp(0.92rem, 2.2vw, 1.15rem); color: #d0e8f0; line-height: 1.3; margin-bottom: 3px; }
-    .card-runtime { font-size: 0.75rem; color: #607880; letter-spacing: 0.07em; text-transform: uppercase; }
-    .card-runtime span { color: #50c8dc; }
+
+    .card-title-block {
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: clamp(0.92rem, 2.2vw, 1.15rem);
+      color: #d0e8f0;
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+
+    .card-runtime {
+      font-size: 0.75rem;
+      color: #607880;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .card-runtime span {
+      color: #50c8dc;
+    }
 
     .badge {
       display: inline-block;
@@ -207,21 +262,46 @@
       border-radius: 2px;
       font-weight: bold;
     }
-    .badge-coop  { background: rgba(10,40,80,0.8); color: #50c8dc; border: 1px solid rgba(80,200,220,0.35); }
-    .badge-kronos{ background: rgba(50,8,8,0.8);  color: #dc5050; border: 1px solid rgba(200,80,80,0.35); }
-    .badge-tl    { background: rgba(60,20,80,0.8); color: #b080dc; border: 1px solid rgba(160,100,200,0.35); }
 
-    .card-description { font-size: 0.86rem; line-height: 1.7; color: #8098a8; }
+    .badge-coop {
+      background: rgba(10, 40, 80, 0.8);
+      color: #50c8dc;
+      border: 1px solid rgba(80, 200, 220, 0.35);
+    }
 
-    .topics { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+    .badge-kronos {
+      background: rgba(50, 8, 8, 0.8);
+      color: #dc5050;
+      border: 1px solid rgba(200, 80, 80, 0.35);
+    }
+
+    .badge-tl {
+      background: rgba(60, 20, 80, 0.8);
+      color: #b080dc;
+      border: 1px solid rgba(160, 100, 200, 0.35);
+    }
+
+    .card-description {
+      font-size: 0.86rem;
+      line-height: 1.7;
+      color: #8098a8;
+    }
+
+    .topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
     .topic-chip {
       font-size: 0.68rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       padding: 3px 9px;
       border-radius: 2px;
-      background: rgba(80,200,220,0.06);
-      border: 1px solid rgba(80,200,220,0.18);
+      background: rgba(80, 200, 220, 0.06);
+      border: 1px solid rgba(80, 200, 220, 0.18);
       color: #5090a0;
     }
 
@@ -229,11 +309,15 @@
       font-size: 0.8rem;
       font-style: italic;
       color: #506070;
-      border-left: 2px solid rgba(80,200,220,0.25);
+      border-left: 2px solid rgba(80, 200, 220, 0.25);
       padding-left: 12px;
       line-height: 1.6;
     }
-    .why-box strong { color: #50c8dc; font-style: normal; }
+
+    .why-box strong {
+      color: #50c8dc;
+      font-style: normal;
+    }
 
     .watch-btn {
       display: inline-flex;
@@ -241,8 +325,8 @@
       gap: 8px;
       margin-top: 4px;
       padding: 8px 18px;
-      background: rgba(80,200,220,0.08);
-      border: 1px solid rgba(80,200,220,0.35);
+      background: rgba(80, 200, 220, 0.08);
+      border: 1px solid rgba(80, 200, 220, 0.35);
       border-radius: 3px;
       color: #50c8dc;
       font-size: 0.76rem;
@@ -252,7 +336,10 @@
       transition: background 0.2s;
       align-self: flex-start;
     }
-    .watch-btn:hover { background: rgba(80,200,220,0.16); }
+
+    .watch-btn:hover {
+      background: rgba(80, 200, 220, 0.16);
+    }
 
     /* ─── Summary Table ─────────────────────────────────────── */
     .summary-section {
@@ -262,6 +349,7 @@
       margin: 0 auto;
       padding: 0 20px 60px;
     }
+
     .summary-section h2 {
       font-size: 0.88rem;
       letter-spacing: 0.15em;
@@ -270,24 +358,44 @@
       text-align: center;
       margin-bottom: 22px;
     }
-    .summary-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
     .summary-table th {
       text-align: left;
       padding: 9px 14px;
-      border-bottom: 1px solid rgba(80,200,220,0.25);
+      border-bottom: 1px solid rgba(80, 200, 220, 0.25);
       color: #5090a0;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-size: 0.7rem;
     }
+
     .summary-table td {
       padding: 9px 14px;
-      border-bottom: 1px solid rgba(80,200,220,0.07);
+      border-bottom: 1px solid rgba(80, 200, 220, 0.07);
       color: #8098a8;
     }
-    .summary-table tr:hover td { background: rgba(80,200,220,0.03); }
-    .summary-table td:first-child { color: #50c8dc; font-weight: bold; }
-    .summary-table tr:last-child td { border-top: 1px solid rgba(80,200,220,0.2); border-bottom: none; color: #50c8dc; font-weight: bold; }
+
+    .summary-table tr:hover td {
+      background: rgba(80, 200, 220, 0.03);
+    }
+
+    .summary-table td:first-child {
+      color: #50c8dc;
+      font-weight: bold;
+    }
+
+    .summary-table tr:last-child td {
+      border-top: 1px solid rgba(80, 200, 220, 0.2);
+      border-bottom: none;
+      color: #50c8dc;
+      font-weight: bold;
+    }
 
     footer {
       position: relative;
@@ -297,7 +405,7 @@
       font-size: 0.7rem;
       color: #304050;
       letter-spacing: 0.1em;
-      border-top: 1px solid rgba(80,200,220,0.08);
+      border-top: 1px solid rgba(80, 200, 220, 0.08);
     }
 
     /* ─── Overview Section ──────────────────────────────────── */
@@ -308,18 +416,21 @@
       margin: 0 auto;
       padding: 50px 28px 40px;
     }
+
     .overview-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 28px;
       margin-top: 30px;
     }
+
     .overview-card {
       padding: 24px;
-      border: 1px solid rgba(80,200,220,0.15);
+      border: 1px solid rgba(80, 200, 220, 0.15);
       border-radius: 6px;
-      background: rgba(8,14,28,0.7);
+      background: rgba(8, 14, 28, 0.7);
     }
+
     .overview-card h3 {
       font-size: 0.92rem;
       color: #50c8dc;
@@ -327,23 +438,31 @@
       text-transform: uppercase;
       margin-bottom: 10px;
     }
+
     .overview-card p {
       font-size: 0.86rem;
       line-height: 1.7;
       color: #8098a8;
     }
+
     .overview-card .stat-row {
       display: flex;
       gap: 20px;
       margin-top: 12px;
       flex-wrap: wrap;
     }
+
     .stat-item {
       font-size: 0.78rem;
       color: #607880;
       letter-spacing: 0.04em;
     }
-    .stat-item span { color: #50c8dc; font-weight: bold; font-size: 1rem; }
+
+    .stat-item span {
+      color: #50c8dc;
+      font-weight: bold;
+      font-size: 1rem;
+    }
 
     /* ─── BGA Playtest Banner ────────────────────────────────── */
     .bga-section {
@@ -353,46 +472,55 @@
       margin: 0 auto;
       padding: 0 28px 50px;
     }
+
     .bga-banner {
-      border: 1px solid rgba(100,220,140,0.3);
+      border: 1px solid rgba(100, 220, 140, 0.3);
       border-radius: 8px;
-      background: linear-gradient(135deg, rgba(10,30,20,0.9) 0%, rgba(8,14,28,0.9) 100%);
+      background: linear-gradient(135deg, rgba(10, 30, 20, 0.9) 0%, rgba(8, 14, 28, 0.9) 100%);
       padding: 36px 36px;
       display: flex;
       gap: 32px;
       align-items: center;
     }
+
     .bga-banner-icon {
       flex-shrink: 0;
       width: 80px;
       height: 80px;
       border-radius: 12px;
-      background: linear-gradient(135deg, rgba(100,220,140,0.15) 0%, rgba(50,160,100,0.08) 100%);
-      border: 1px solid rgba(100,220,140,0.25);
+      background: linear-gradient(135deg, rgba(100, 220, 140, 0.15) 0%, rgba(50, 160, 100, 0.08) 100%);
+      border: 1px solid rgba(100, 220, 140, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.2rem;
     }
-    .bga-banner-content { flex: 1; }
+
+    .bga-banner-content {
+      flex: 1;
+    }
+
     .bga-banner h2 {
       font-size: 1.2rem;
       color: #64dc8c;
       letter-spacing: 0.06em;
       margin-bottom: 8px;
     }
+
     .bga-banner p {
       font-size: 0.88rem;
       line-height: 1.7;
       color: #8098a8;
       margin-bottom: 16px;
     }
+
     .bga-banner .bga-steps {
       display: flex;
       gap: 24px;
       flex-wrap: wrap;
       margin-bottom: 18px;
     }
+
     .bga-step {
       display: flex;
       align-items: center;
@@ -400,12 +528,13 @@
       font-size: 0.82rem;
       color: #8098a8;
     }
+
     .bga-step-num {
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: rgba(100,220,140,0.12);
-      border: 1px solid rgba(100,220,140,0.3);
+      background: rgba(100, 220, 140, 0.12);
+      border: 1px solid rgba(100, 220, 140, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -414,13 +543,14 @@
       color: #64dc8c;
       flex-shrink: 0;
     }
+
     .bga-play-btn {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       padding: 12px 28px;
-      background: linear-gradient(135deg, rgba(50,160,100,0.25) 0%, rgba(30,120,80,0.2) 100%);
-      border: 1px solid rgba(100,220,140,0.4);
+      background: linear-gradient(135deg, rgba(50, 160, 100, 0.25) 0%, rgba(30, 120, 80, 0.2) 100%);
+      border: 1px solid rgba(100, 220, 140, 0.4);
       border-radius: 4px;
       color: #64dc8c;
       font-size: 0.88rem;
@@ -430,9 +560,10 @@
       font-weight: bold;
       transition: background 0.2s, box-shadow 0.2s;
     }
+
     .bga-play-btn:hover {
-      background: linear-gradient(135deg, rgba(50,160,100,0.35) 0%, rgba(30,120,80,0.3) 100%);
-      box-shadow: 0 0 20px rgba(100,220,140,0.15);
+      background: linear-gradient(135deg, rgba(50, 160, 100, 0.35) 0%, rgba(30, 120, 80, 0.3) 100%);
+      box-shadow: 0 0 20px rgba(100, 220, 140, 0.15);
     }
 
     /* ─── Section Divider ────────────────────────────────────── */
@@ -443,16 +574,19 @@
       margin: 0 auto;
       padding: 0 28px;
     }
+
     .section-divider hr {
       border: none;
-      border-top: 1px solid rgba(80,200,220,0.12);
+      border-top: 1px solid rgba(80, 200, 220, 0.12);
     }
+
     .section-heading {
       position: relative;
       z-index: 1;
       text-align: center;
       padding: 40px 20px 10px;
     }
+
     .section-heading h2 {
       font-size: 1.1rem;
       letter-spacing: 0.12em;
@@ -460,6 +594,7 @@
       color: #50c8dc;
       margin-bottom: 8px;
     }
+
     .section-heading p {
       font-size: 0.86rem;
       color: #607888;
@@ -467,452 +602,473 @@
     }
 
     @media (max-width: 640px) {
-      .hero .series-meta { flex-direction: column; gap: 6px; }
-      .site-nav { flex-direction: column; gap: 10px; }
-      .overview-grid { grid-template-columns: 1fr; }
-      .bga-banner { flex-direction: column; text-align: center; }
-      .bga-banner .bga-steps { justify-content: center; }
+      .hero .series-meta {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .site-nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bga-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .bga-banner .bga-steps {
+        justify-content: center;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<nav class="site-nav">
-  <a href="index.html" class="nav-logo">⧖ Kairos</a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="articles.html">Articles</a></li>
-    <li><a href="dice.html">Dice</a></li>
-    <li><a href="processes.html">Processes</a></li>
-    <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
-  </ul>
-</nav>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">⧖ Kairos</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="https://kairos-rules.netlify.app" target="_blank">Rules ↗</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="dice.html">Dice</a></li>
+      <li><a href="processes.html">Processes</a></li>
+      <li><a href="game-options.html">Options</a></li>
+      <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
+    </ul>
+  </nav>
 
-<section class="hero">
-  <img class="hero-logo" src="gameimages/kairos-logo.png" alt="Kairos Logo" onerror="this.style.display='none'" />
-  <div class="subtitle-small">The Time Travel Game</div>
-  <h1>Kairos</h1>
-  <p class="subtitle">A semi-cooperative board game where time-agency commanders race across history to recover treasures, guard legendary artifacts, and stop the rogue quantum A.I. Kronos before time runs out.</p>
-  <div class="series-meta">
-    <div><span>1-4</span> Players</div>
-    <div><span>60-120</span> Minutes</div>
-    <div><span>Semi</span>-Cooperative</div>
+  <section class="hero">
+    <img class="hero-logo" src="gameimages/kairos-logo.png" alt="Kairos Logo" onerror="this.style.display='none'" />
+    <div class="subtitle-small">The Time Travel Game</div>
+    <h1>Kairos</h1>
+    <p class="subtitle">A semi-cooperative board game where time-agency commanders race across history to recover
+      treasures, guard legendary artifacts, and stop the rogue quantum A.I. Kronos before time runs out.</p>
+    <div class="series-meta">
+      <div><span>1-4</span> Players</div>
+      <div><span>60-120</span> Minutes</div>
+      <div><span>Semi</span>-Cooperative</div>
+    </div>
+  </section>
+
+  <!-- ═══ GAME OVERVIEW ═══ -->
+  <div class="overview-section">
+    <div class="intro-block" style="border-bottom:none; margin:0; padding-bottom:20px;">
+      <p>
+        In Kairos, your team wins or loses together — but the player with the highest score
+        is the individual champion. Deploy your agents across a hex grid of 36 Time Locations
+        spanning from prehistoric Earth to the far future. Recover historical Items, deposit
+        powerful Crystals, and guard legendary Artifacts from Kronos — the rogue A.I. that
+        steals relics and drags the Main Timeline toward darkness every round. Push the
+        timeline positive and clear your blots before the Singularity, or Kronos wins.
+      </p>
+    </div>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <h3>Your Mission</h3>
+        <p>
+          Command a team of agents travelling through time. Recover three types of article
+          — Items (carry to correct locations), Crystals (deploy to boost the timeline),
+          and Artifacts (guard in the field against Kronos). Promote agents to TimeLords
+          for powerful abilities: evade dinosaurs, empower crystals, and attempt the
+          dangerous Vortex switch-off.
+        </p>
+      </div>
+      <div class="overview-card">
+        <h3>The Threat: Kronos</h3>
+        <p>
+          Every round, the A.I. antagonist Kronos rolls to steal unguarded artifacts, empowers
+          the ones it holds, and pulls the timeline deeper into Darkness. Your crystals fight
+          back with Crystal Light — but only if deployed to the right locations. Time Collapse
+          shortens the clock each round unless someone shuts down the Vortex.
+        </p>
+      </div>
+      <div class="overview-card">
+        <h3>Dice-Driven Exploration</h3>
+        <p>
+          Time travel uses a unique multi-requirement dice system — match Ring, Base, Planet,
+          and Direction requirements across up to 4 rolls. Skulls trigger random events.
+          Recovery uses a separate 6-factor dice system with coloured dice, wilds, and
+          event faces. TimeLords add powerful bonus dice to both systems.
+        </p>
+      </div>
+      <div class="overview-card">
+        <h3>Dynamic Dangers</h3>
+        <p>
+          When paradoxes accumulate, time-travelling dinosaurs spawn and rampage across the
+          board — trampling normal agents on contact. TimeLords can attempt to evade and
+          even send dinosaurs back for rewards. Events can jail your agents in Xanadu or
+          leave them Lost in Time. Every round brings new tactical decisions.
+        </p>
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- ═══ GAME OVERVIEW ═══ -->
-<div class="overview-section">
-  <div class="intro-block" style="border-bottom:none; margin:0; padding-bottom:20px;">
+  <!-- ═══ BGA PLAYTESTING ═══ -->
+  <div class="bga-section">
+    <div class="bga-banner">
+      <div class="bga-banner-icon">🎲</div>
+      <div class="bga-banner-content">
+        <h2>Play Now on Board Game Arena</h2>
+        <p>
+          Kairos is currently in active development and playtesting on
+          <strong style="color:#64dc8c;">Board Game Arena</strong> — the world's largest
+          online board gaming platform. The digital version features full automation of
+          Kronos phases, dice rolling, event cards, dinosaur movement, and scoring.
+          Games are being actively balanced and refined based on player feedback.
+        </p>
+        <div class="bga-steps">
+          <div class="bga-step">
+            <div class="bga-step-num">1</div> Create a free BGA account
+          </div>
+          <div class="bga-step">
+            <div class="bga-step-num">2</div> Search for "Kairos"
+          </div>
+          <div class="bga-step">
+            <div class="bga-step-num">3</div> Create or join a table
+          </div>
+        </div>
+        <a href="https://boardgamearena.com" target="_blank" class="bga-play-btn">
+          ▶ Play on Board Game Arena
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RULES REFERENCE ═══ -->
+  <div class="section-divider">
+    <hr />
+  </div>
+  <div class="overview-section" style="padding-top:30px; padding-bottom:30px;">
+    <div class="bga-banner"
+      style="border-color:rgba(80,200,220,0.3); background:linear-gradient(135deg, rgba(10,20,40,0.9) 0%, rgba(8,14,28,0.9) 100%);">
+      <div class="bga-banner-icon"
+        style="background:linear-gradient(135deg, rgba(80,200,220,0.15) 0%, rgba(40,120,160,0.08) 100%); border-color:rgba(80,200,220,0.25);">
+        📖</div>
+      <div class="bga-banner-content">
+        <h2 style="color:#50c8dc;">Full Game Rules</h2>
+        <p>
+          New to Kairos? Read the complete rules — covering every mechanic, dice system, article type,
+          and Kronos phase — along with visual reference galleries for all articles, dice, and time locations.
+        </p>
+        <a href="https://kairos-rules.netlify.app" target="_blank" class="bga-play-btn"
+          style="background:linear-gradient(135deg, rgba(40,120,180,0.25) 0%, rgba(30,80,140,0.2) 100%); border-color:rgba(80,200,220,0.4); color:#50c8dc;">
+          📖 Read the Full Rules
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ GAMEPLAY RECORDINGS ═══ -->
+  <div class="section-divider">
+    <hr />
+  </div>
+  <div class="section-heading">
+    <h2>Gameplay Recordings</h2>
+    <p>Watch a full game unfold — 2 players + Automata, recorded round by round</p>
+  </div>
+
+  <div class="intro-block" style="border-bottom:none; padding-bottom:0;">
     <p>
-      In Kairos, your team wins or loses together — but the player with the highest score
-      is the individual champion. Deploy your agents across a hex grid of 36 Time Locations
-      spanning from prehistoric Earth to the far future. Recover historical Items, deposit
-      powerful Crystals, and guard legendary Artifacts from Kronos — the rogue A.I. that
-      steals relics and drags the Main Timeline toward darkness every round. Push the
-      timeline positive and clear your blots before the Singularity, or Kronos wins.
+      See Kairos in action. This series follows a complete game with two human players and one
+      Automata opponent. Each video covers a single round — from agent activation and time travel
+      through article recovery to the Kronos phase. Watch every decision, dice roll, and strategic
+      trade-off play out in real time.
     </p>
   </div>
 
-  <div class="overview-grid">
-    <div class="overview-card">
-      <h3>Your Mission</h3>
-      <p>
-        Command a team of agents travelling through time. Recover three types of article
-        — Items (carry to correct locations), Crystals (deploy to boost the timeline),
-        and Artifacts (guard in the field against Kronos). Promote agents to TimeLords
-        for powerful abilities: evade dinosaurs, empower crystals, and attempt the
-        dangerous Vortex switch-off.
-      </p>
-    </div>
-    <div class="overview-card">
-      <h3>The Threat: Kronos</h3>
-      <p>
-        Every round, the A.I. antagonist Kronos rolls to steal unguarded artifacts, empowers
-        the ones it holds, and pulls the timeline deeper into Darkness. Your crystals fight
-        back with Crystal Light — but only if deployed to the right locations. Time Collapse
-        shortens the clock each round unless someone shuts down the Vortex.
-      </p>
-    </div>
-    <div class="overview-card">
-      <h3>Dice-Driven Exploration</h3>
-      <p>
-        Time travel uses a unique multi-requirement dice system — match Ring, Base, Planet,
-        and Direction requirements across up to 4 rolls. Skulls trigger random events.
-        Recovery uses a separate 6-factor dice system with coloured dice, wilds, and
-        event faces. TimeLords add powerful bonus dice to both systems.
-      </p>
-    </div>
-    <div class="overview-card">
-      <h3>Dynamic Dangers</h3>
-      <p>
-        When paradoxes accumulate, time-travelling dinosaurs spawn and rampage across the
-        board — trampling normal agents on contact. TimeLords can attempt to evade and
-        even send dinosaurs back for rewards. Events can jail your agents in Xanadu or
-        leave them Lost in Time. Every round brings new tactical decisions.
-      </p>
-    </div>
+  <div class="cards-section">
+
+    <!-- ROUND 1 -->
+    <article class="video-card">
+      <div class="card-image">
+        <div class="yt-placeholder"
+          style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(10,20,40,0.95),rgba(20,10,30,0.95));color:#304050;font-size:0.9rem;letter-spacing:0.1em;">
+          VIDEO COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="video-number">1</div>
+          <div class="card-title-block">
+            <div class="card-title">Round 1 — Setup &amp; First Moves</div>
+            <div class="card-runtime">Runtime: <span>TBD</span></div>
+          </div>
+        </div>
+        <div><span class="badge badge-coop">Round 1</span></div>
+        <p class="card-description">
+          The game begins. See the board setup — 12 artifacts placed at their home locations, items
+          scattered randomly across past-era locations, and crystals seeded in the future. Both players
+          deploy their starting agents from HQ and make their first time-travel attempts.
+        </p>
+        <div class="topics">
+          <span class="topic-chip">Game Setup</span>
+          <span class="topic-chip">First Deployments</span>
+          <span class="topic-chip">Time Travel</span>
+          <span class="topic-chip">Automata Turn</span>
+          <span class="topic-chip">Kronos Phase</span>
+        </div>
+        <a href="round1.html" class="watch-btn">▶ Watch Round 1</a>
+      </div>
+    </article>
+
+    <!-- ROUND 2 -->
+    <article class="video-card">
+      <div class="card-image">
+        <div class="yt-placeholder"
+          style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(10,20,40,0.95),rgba(20,10,30,0.95));color:#304050;font-size:0.9rem;letter-spacing:0.1em;">
+          VIDEO COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="video-number">2</div>
+          <div class="card-title-block">
+            <div class="card-title">Round 2 — Early Exploration</div>
+            <div class="card-runtime">Runtime: <span>TBD</span></div>
+          </div>
+        </div>
+        <div><span class="badge badge-coop">Round 2</span></div>
+        <p class="card-description">
+          Agents spread across the board. Players begin recovering items and crystals while scouting
+          artifact locations for guarding. The travel dice system is on full display — watch how locking,
+          wilds, and portal bonuses combine. Kronos makes its second steal attempt.
+        </p>
+        <div class="topics">
+          <span class="topic-chip">Article Recovery</span>
+          <span class="topic-chip">Travel Dice</span>
+          <span class="topic-chip">Portal Bonuses</span>
+          <span class="topic-chip">Kronos Steal</span>
+        </div>
+        <a href="round2.html" class="watch-btn">▶ Watch Round 2</a>
+      </div>
+    </article>
+
+    <!-- ROUND 3 -->
+    <article class="video-card">
+      <div class="card-image">
+        <div class="yt-placeholder"
+          style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(10,20,40,0.95),rgba(20,10,30,0.95));color:#304050;font-size:0.9rem;letter-spacing:0.1em;">
+          VIDEO COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="video-number">3</div>
+          <div class="card-title-block">
+            <div class="card-title">Round 3 — Building Momentum</div>
+            <div class="card-runtime">Runtime: <span>TBD</span></div>
+          </div>
+        </div>
+        <div><span class="badge badge-coop">Round 3</span></div>
+        <p class="card-description">
+          The mid-early game takes shape. Players deposit their first crystals at HQ for timeline boosts
+          and deliver items to their correct locations. Blots start clearing. Kronos starts the Steal.
+          Time Collapse begins threatening to shorten the game clock.
+        </p>
+        <div class="topics">
+          <span class="topic-chip">Crystal Deposits</span>
+          <span class="topic-chip">Item Delivery</span>
+          <span class="topic-chip">Blot Clearing</span>
+          <span class="topic-chip">Time Collapse</span>
+        </div>
+        <a href="round3.html" class="watch-btn">▶ Watch Round 3</a>
+      </div>
+    </article>
+
+    <!-- ROUND 4 -->
+    <article class="video-card">
+      <div class="card-image">
+        <div class="yt-placeholder"
+          style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(10,20,40,0.95),rgba(20,10,30,0.95));color:#304050;font-size:0.9rem;letter-spacing:0.1em;">
+          VIDEO COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="video-number">4</div>
+          <div class="card-title-block">
+            <div class="card-title">Round 4 — The Pressure Builds</div>
+            <div class="card-runtime">Runtime: <span>TBD</span></div>
+          </div>
+        </div>
+        <div><span class="badge badge-kronos">Kronos Intensifies</span></div>
+        <p class="card-description">
+          Kronos is gaining strength. Stolen artifacts empower and drag the timeline deeper into
+          darkness. Players must decide: guard artifacts, chase items, or push for TimeLord upgrades?
+          Events start firing as skull faces appear on travel dice. Strategic choices become critical.
+        </p>
+        <div class="topics">
+          <span class="topic-chip">Kronos Empowerment</span>
+          <span class="topic-chip">Strategic Decisions</span>
+          <span class="topic-chip">Events</span>
+          <span class="topic-chip">TimeLord Progress</span>
+        </div>
+        <a href="round4.html" class="watch-btn">▶ Watch Round 4</a>
+      </div>
+    </article>
+
+    <!-- ROUND 5 -->
+    <article class="video-card">
+      <div class="card-image">
+        <div class="yt-placeholder"
+          style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(10,20,40,0.95),rgba(20,10,30,0.95));color:#304050;font-size:0.9rem;letter-spacing:0.1em;">
+          VIDEO COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="video-number">5</div>
+          <div class="card-title-block">
+            <div class="card-title">Round 5 — Mid-Game Turning Point</div>
+            <div class="card-runtime">Runtime: <span>TBD</span></div>
+          </div>
+        </div>
+        <div><span class="badge badge-tl">TimeLord Upgrades</span></div>
+        <p class="card-description">
+          The first agents hit 8 Kairos and upgrade to TimeLords — unlocking bonus dice, crystal
+          empowerment, and the ability to attempt the Vortex. The nerfing mechanic comes into play
+          as TimeLords empower crystals to suppress Kronos's hold on paired artifacts. The game's
+          balance of power begins to shift.
+        </p>
+        <div class="topics">
+          <span class="topic-chip">TimeLord Upgrade</span>
+          <span class="topic-chip">Crystal Empowerment</span>
+          <span class="topic-chip">Nerfing</span>
+          <span class="topic-chip">Bonus Dice</span>
+        </div>
+        <a href="round5.html" class="watch-btn">▶ Watch Round 5</a>
+      </div>
+    </article>
+
+    <!-- ROUND 6 -->
+    <article class="video-card">
+      <div class="card-image">
+        <div class="yt-placeholder"
+          style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(10,20,40,0.95),rgba(20,10,30,0.95));color:#304050;font-size:0.9rem;letter-spacing:0.1em;">
+          VIDEO COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="video-number">6</div>
+          <div class="card-title-block">
+            <div class="card-title">Round 6 — Racing the Clock</div>
+            <div class="card-runtime">Runtime: <span>TBD</span></div>
+          </div>
+        </div>
+        <div><span class="badge badge-kronos">Late Game</span></div>
+        <p class="card-description">
+          Time Collapse has shortened the game and the Singularity looms. Players race to clear
+          remaining blots and push the timeline positive. Every agent activation counts. Will someone
+          risk the Vortex attempt? Kronos continues its relentless assault on unguarded artifacts.
+          The endgame strategy crystallises.
+        </p>
+        <div class="topics">
+          <span class="topic-chip">Endgame Strategy</span>
+          <span class="topic-chip">Vortex Decision</span>
+          <span class="topic-chip">Timeline Push</span>
+          <span class="topic-chip">Final Blots</span>
+        </div>
+        <a href="round6.html" class="watch-btn">▶ Watch Round 6</a>
+      </div>
+    </article>
+
+    <!-- ROUND 7 -->
+    <article class="video-card">
+      <div class="card-image">
+        <div class="yt-placeholder"
+          style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(10,20,40,0.95),rgba(20,10,30,0.95));color:#304050;font-size:0.9rem;letter-spacing:0.1em;">
+          VIDEO COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="video-number">7</div>
+          <div class="card-title-block">
+            <div class="card-title">Round 7 — The Final Push</div>
+            <div class="card-runtime">Runtime: <span>TBD</span></div>
+          </div>
+        </div>
+        <div><span class="badge badge-coop">Climax</span></div>
+        <p class="card-description">
+          The last round before the Singularity. Everything comes down to this — can the team clear
+          the final blots and hold the timeline in positive territory through one more Kronos phase?
+          Watch the final scoring, the win/loss determination, and the post-game breakdown of each
+          player's Kairos score.
+        </p>
+        <div class="topics">
+          <span class="topic-chip">Final Round</span>
+          <span class="topic-chip">Win Check</span>
+          <span class="topic-chip">Scoring</span>
+          <span class="topic-chip">Game Result</span>
+        </div>
+        <a href="round7.html" class="watch-btn">▶ Watch Round 7</a>
+      </div>
+    </article>
+
   </div>
-</div>
 
-<!-- ═══ BGA PLAYTESTING ═══ -->
-<div class="bga-section">
-  <div class="bga-banner">
-    <div class="bga-banner-icon">🎲</div>
-    <div class="bga-banner-content">
-      <h2>Play Now on Board Game Arena</h2>
-      <p>
-        Kairos is currently in active development and playtesting on
-        <strong style="color:#64dc8c;">Board Game Arena</strong> — the world's largest
-        online board gaming platform. The digital version features full automation of
-        Kronos phases, dice rolling, event cards, dinosaur movement, and scoring.
-        Games are being actively balanced and refined based on player feedback.
-      </p>
-      <div class="bga-steps">
-        <div class="bga-step"><div class="bga-step-num">1</div> Create a free BGA account</div>
-        <div class="bga-step"><div class="bga-step-num">2</div> Search for "Kairos"</div>
-        <div class="bga-step"><div class="bga-step-num">3</div> Create or join a table</div>
-      </div>
-      <a href="https://boardgamearena.com" target="_blank" class="bga-play-btn">
-        ▶ Play on Board Game Arena
-      </a>
-    </div>
-  </div>
-</div>
+  <section class="summary-section">
+    <h2>Recordings at a Glance</h2>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Round</th>
+          <th>Title</th>
+          <th>Runtime</th>
+          <th>Key Moments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Setup &amp; First Moves</td>
+          <td>TBD</td>
+          <td>Board setup, first deployments, opening Kronos phase</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Early Exploration</td>
+          <td>TBD</td>
+          <td>First recoveries, travel dice in action, portal bonuses</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Building Momentum</td>
+          <td>TBD</td>
+          <td>Crystal deposits, item deliveries, blot clearing</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>The Pressure Builds</td>
+          <td>TBD</td>
+          <td>Kronos empowerment, events, strategic trade-offs</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Mid-Game Turning Point</td>
+          <td>TBD</td>
+          <td>TimeLord upgrades, crystal empowerment, nerfing</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Racing the Clock</td>
+          <td>TBD</td>
+          <td>Time Collapse, Vortex decision, endgame push</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>The Final Push</td>
+          <td>TBD</td>
+          <td>Final round, win check, scoring breakdown</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-<!-- ═══ TUTORIAL SERIES ═══ -->
-<div class="section-divider"><hr /></div>
-<div class="section-heading">
-  <h2>Tutorial Video Series</h2>
-  <p>8 videos covering every system from first principles (~76 minutes total)</p>
-</div>
-
-<div class="intro-block" style="border-bottom:none; padding-bottom:0;">
-  <p>
-    New to Kairos? This series walks through every mechanic step by step — from the board layout
-    and dice systems to Kronos strategy and endgame scoring. Watch in order for the best
-    experience, or jump to any topic you need.
-  </p>
-</div>
-
-<div class="cards-section">
-
-  <!-- VIDEO 1 -->
-  <article class="video-card">
-    <div class="card-image">
-      <img src="gameimages/v1-overview.png" alt="Kairos board overview" />
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="video-number">1</div>
-        <div class="card-title-block">
-          <div class="card-title">Welcome to Kairos: The Big Picture</div>
-          <div class="card-runtime">Runtime: <span>~8 minutes</span></div>
-        </div>
-      </div>
-      <div><span class="badge badge-coop">Semi-Cooperative</span></div>
-      <p class="card-description">
-        Start here. Kairos is a semi-cooperative 1–4 player game — the team wins or loses together,
-        but the player with the most Kairos at the end is the individual winner.
-        Tour the hex board (36 Time Locations across 3 rings, plus the central Vortex), meet the four
-        core trackers (Kairos, Blots, Main Timeline, Paradox Counter), and understand the two
-        ways the game can end: your team pushes the timeline into positive territory with all their
-        blots cleared, or Kronos drags the Timeline into darkness when time runs out at the Singularity.
-      </p>
-      <div class="topics">
-        <span class="topic-chip">Board Tour</span>
-        <span class="topic-chip">Hex Grid & Rings</span>
-        <span class="topic-chip">Kairos & Blots</span>
-        <span class="topic-chip">Main Line Timeline</span>
-        <span class="topic-chip">Paradox Counter</span>
-        <span class="topic-chip">Win / Loss Conditions</span>
-        <span class="topic-chip">Turn Structure</span>
-      </div>
-      <div class="why-box"><strong>Why first?</strong> Every other mechanic references the timeline, blots, and the board layout. This video gives you the map to navigate everything else.</div>
-      <a href="video1.html" class="watch-btn">▶ Watch Video 1</a>
-    </div>
-  </article>
-
-  <!-- VIDEO 2 -->
-  <article class="video-card">
-    <div class="card-image">
-      <img src="gameimages/v2-travel-dice.png" alt="Travel dice system" />
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="video-number">2</div>
-        <div class="card-title-block">
-          <div class="card-title">Time Travel: The Dice System</div>
-          <div class="card-runtime">Runtime: <span>~12 minutes</span></div>
-        </div>
-      </div>
-      <div><span class="badge badge-coop">All Players</span></div>
-      <p class="card-description">
-        Getting your agents to the right Time Location is the core challenge of every turn.
-        Time travel requires meeting four simultaneous dice requirements: Ring (Orange), Base (Green),
-        Planet (White), and Direction (Black — only when crossing eras). You have up to 4 rolls to
-        satisfy them all, locking dice between rolls. Skulls auto-lock and two skulls means instant
-        failure of time travel and a Time Event occurs. Some of these events are positive, but most are negative.
-        Wilds (*) can be used to fill missing requirements. Portals and adjacency add bonus dice, along with a Timelord dice.
-      </p>
-      <div class="topics">
-        <span class="topic-chip">Travel Dice</span>
-        <span class="topic-chip">4 Requirements</span>
-        <span class="topic-chip">Locking & Re-rolling</span>
-        <span class="topic-chip">Skull Faces</span>
-        <span class="topic-chip">Wild Faces</span>
-        <span class="topic-chip">Portal Bonus Die</span>
-        <span class="topic-chip">Adjacency Bonus Die</span>
-        <span class="topic-chip">Timelord Die</span>
-        <span class="topic-chip">Eras: Past & Future</span>
-      </div>
-      <div class="why-box"><strong>Why its own video?</strong> The dice system is the most mechanically unusual part of the game. Players who don't understand locking and wilds will consistently fail trips they should be making.</div>
-      <a href="video2.html" class="watch-btn">▶ Watch Video 2</a>
-    </div>
-  </article>
-
-  <!-- VIDEO 3 -->
-  <article class="video-card">
-    <div class="card-image">
-      <img src="gameimages/v3-articles.png" alt="Articles: Items, Crystals, Artifacts" />
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="video-number">3</div>
-        <div class="card-title-block">
-          <div class="card-title">Articles: Items, Crystals, and Artifacts</div>
-          <div class="card-runtime">Runtime: <span>~10 minutes</span></div>
-        </div>
-      </div>
-      <div><span class="badge badge-coop">All Players</span></div>
-      <p class="card-description">
-        Three types of article, three different strategies. Items are historical objects scattered
-        randomly to past locations — carry them to their correct Time Location to earn Kairos, remove blots, and crucially
-        reduce the Paradoxes. Crystals come from future Time Locations — deposit them at HQ to gain kairos, reduce blots
-        for ongoing Timeline boosts every round. Artifacts are legendary relics that never leave their
-        location — guard them in the field to protect them from Kronos and earn Kairos. Recovery uses
-        a separate six-factor dice system.
-      </p>
-      <div class="topics">
-        <span class="topic-chip">Items</span>
-        <span class="topic-chip">Crystals</span>
-        <span class="topic-chip">Artifacts</span>
-        <span class="topic-chip">Recovery Dice</span>
-        <span class="topic-chip">6 Specialist Factors</span>
-        <span class="topic-chip">Carry Capacity</span>
-        <span class="topic-chip">Paradox Counter</span>
-        <span class="topic-chip">MLT Boost</span>
-      </div>
-      <div class="why-box"><strong>Why one video?</strong> The three article types interact — crystals nerf artifacts, items reduce paradox, artifacts stop Kronos. Understanding all three together is essential before tackling strategy.</div>
-      <a href="video3.html" class="watch-btn">▶ Watch Video 3</a>
-    </div>
-  </article>
-
-  <!-- VIDEO 4 -->
-  <article class="video-card">
-    <div class="card-image">
-      <img src="gameimages/v4-timelords.png" alt="Agents and TimeLords" />
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="video-number">4</div>
-        <div class="card-title-block">
-          <div class="card-title">Agents and TimeLords</div>
-          <div class="card-runtime">Runtime: <span>~8 minutes</span></div>
-        </div>
-      </div>
-      <div><span class="badge badge-tl">TimeLord Focus</span></div>
-      <p class="card-description">
-        Regular agents are capable but limited. TimeLords are your most powerful assets — they add a
-        bonus die with four wilds to both travel and recovery, carry an extra article, and unlock
-        three exclusive actions: Empower a crystal, Attempt the Vortex switch-off, and Rescue an
-        agent Lost in Time. The upgrade triggers automatically once an agent's personal Kairos score
-        reaches 8. How to earn them, how to use them, and why prioritising the upgrade
-        is key to late-game power.
-      </p>
-      <div class="topics">
-        <span class="topic-chip">Regular Agents</span>
-        <span class="topic-chip">TimeLord Upgrade</span>
-        <span class="topic-chip">Upgrade Conditions</span>
-        <span class="topic-chip">TimeLord Bonus Die</span>
-        <span class="topic-chip">Empower Crystal</span>
-        <span class="topic-chip">Attempt Vortex</span>
-        <span class="topic-chip">Rescue from LIT</span>
-        <span class="topic-chip">Hazard Die Immunity</span>
-      </div>
-      <div class="why-box"><strong>Why its own video?</strong> The TimeLord upgrade is the game's central power ramp. Players who don't know the unlock conditions often delay it by accident — and pay for it in the late game.</div>
-      <a href="video4.html" class="watch-btn">▶ Watch Video 4</a>
-    </div>
-  </article>
-
-  <!-- VIDEO 5 -->
-  <article class="video-card">
-    <div class="card-image">
-      <img src="gameimages/v5-kronos.png" alt="Kronos phase" />
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="video-number">5</div>
-        <div class="card-title-block">
-          <div class="card-title">Kronos: Your Adversary</div>
-          <div class="card-runtime">Runtime: <span>~12 minutes</span></div>
-        </div>
-      </div>
-      <div><span class="badge badge-kronos">Kronos Phase</span></div>
-      <p class="card-description">
-        Kronos acts at the end of every round in six ruthless sub-phases. Phase 1: roll 2d6 per artifact
-        and steal on 9+ after modifiers (−5 non-portal, +3 ring-1, +2 Hard / −2 Easy, plus crystal excess and timeline tier, −4 Protected / −2 Guarded). Phase 2: empower stolen artifacts. Phase 3: Timeline Control —
-        the timeline drops for every artifact it holds. Phase 4: crystals at a player's HQ roll to boost the timeline back up.
-        Phase 5: Time Collapse — a 2d6 roll that can shorten the game. Phase 6: rotate portals.
-        Understanding Kronos's exact logic tells you precisely where to place agents, what to
-        guard, and why hoarded crystals make every steal roll more dangerous.
-      </p>
-      <div class="topics">
-        <span class="topic-chip">6-Phase Kronos Turn</span>
-        <span class="topic-chip">Steal Thresholds</span>
-        <span class="topic-chip">Artifact Penalties</span>
-        <span class="topic-chip">Crystal Light</span>
-        <span class="topic-chip">Time Collapse</span>
-        <span class="topic-chip">Portal Rotation</span>
-        <span class="topic-chip">Kronos Overflow</span>
-        <span class="topic-chip">Paradox Counter</span>
-      </div>
-      <div class="why-box"><strong>Why its own video?</strong> Kronos is what the whole game is built around. Once you understand its exact sequence, every agent placement decision makes strategic sense.</div>
-      <a href="video5.html" class="watch-btn">▶ Watch Video 5</a>
-    </div>
-  </article>
-
-  <!-- VIDEO 6 -->
-  <article class="video-card">
-    <div class="card-image">
-      <img src="gameimages/v6-empowerment.png" alt="Crystal empowerment and nerfing" />
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="video-number">6</div>
-        <div class="card-title-block">
-          <div class="card-title">Empowerment, Nerfing, and Crystal Strategy</div>
-          <div class="card-runtime">Runtime: <span>~8 minutes</span></div>
-        </div>
-      </div>
-      <div><span class="badge badge-tl">TimeLord Action</span></div>
-      <p class="card-description">
-        The most powerful defensive tool in the game — and perhaps the most overlooked. Each crystal is
-        randomly paired with one artifact at setup. When a TimeLord empowers that crystal at HQ, it
-        does three things: gives the crystal +1 to its Crystal Light roll this round, earns +1 Kairos, and most
-        importantly "nerfs" the paired artifact — Kronos skips it entirely during the empower and Timeline Control phases. The pairing changes every game. Discovering and exploiting it
-        is central to advanced play.
-      </p>
-      <div class="topics">
-        <span class="topic-chip">Crystal-Artifact Pairing</span>
-        <span class="topic-chip">Empower Action</span>
-        <span class="topic-chip">Nerfing Mechanics</span>
-        <span class="topic-chip">Double MLT Boost</span>
-        <span class="topic-chip">+1 Kairos Reward</span>
-        <span class="topic-chip">End-of-Round Reset</span>
-        <span class="topic-chip">Timing Strategy</span>
-      </div>
-      <div class="why-box"><strong>Why its own video?</strong> The nerfing mechanic is the game's deepest strategic layer. It's not explained well in first plays — and teams that miss it wonder why Kronos is unstoppable.</div>
-      <a href="video6.html" class="watch-btn">▶ Watch Video 6</a>
-    </div>
-  </article>
-
-  <!-- VIDEO 7 -->
-  <article class="video-card">
-    <div class="card-image">
-      <img src="gameimages/v7-events.png" alt="Events, Jail, and Lost in Time" />
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="video-number">7</div>
-        <div class="card-title-block">
-          <div class="card-title">Events, Jail, and Lost in Time</div>
-          <div class="card-runtime">Runtime: <span>~10 minutes</span></div>
-        </div>
-      </div>
-      <div><span class="badge badge-coop">All Players</span></div>
-      <p class="card-description">
-        Skull faces on travel dice trigger Event cards — the game's chaos engine. 40 travel events
-        range from sending agents to Xanadu Jail to full wipes and blot additions, but also include
-        powerful upgrades and blot removals. 18 Recovery Events fire when $ faces appear. Some cards
-        are KEEP cards held in hand as insurance. When agents end up in Jail or Lost in Time, you
-        have specific escape routes — and a ticking clock. The Hazard Die appears when the timeline
-        falls to -6, adding miss-turn risk for all non-TimeLords.
-      </p>
-      <div class="topics">
-        <span class="topic-chip">Travel Events</span>
-        <span class="topic-chip">Recovery Events</span>
-        <span class="topic-chip">KEEP Cards</span>
-        <span class="topic-chip">Xanadu Jail</span>
-        <span class="topic-chip">Lost in Time</span>
-        <span class="topic-chip">Escape Options</span>
-        <span class="topic-chip">Hazard Die</span>
-        <span class="topic-chip">Skull Faces</span>
-      </div>
-      <div class="why-box"><strong>Why its own video?</strong> New players are blindsided by events. Knowing what KEEP cards do and how to escape Jail/LIT efficiently prevents a single bad event from derailing the whole team.</div>
-      <a href="video7.html" class="watch-btn">▶ Watch Video 7</a>
-    </div>
-  </article>
-
-  <!-- VIDEO 8 -->
-  <article class="video-card">
-    <div class="card-image">
-      <img src="gameimages/v8-winning.png" alt="Winning, scoring and the Vortex" />
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="video-number">8</div>
-        <div class="card-title-block">
-          <div class="card-title">Winning, Scoring, and the Time Vortex</div>
-          <div class="card-runtime">Runtime: <span>~8 minutes</span></div>
-        </div>
-      </div>
-      <div><span class="badge badge-coop">All Players</span></div>
-      <p class="card-description">
-        How the game actually ends — and the difference between a win, a Pyrrhic victory, and a
-        Kronos defeat. Score = Kairos minus Blots. The early win check means clearing your last
-        blot before Kronos acts can save the team. Time Collapse can dynamically shorten the game
-        each round (unless the Vortex is switched off). The Vortex attempt — based on the roll of
-        2 six sided dice ± modifiers —
-        is the highest-risk, highest-reward move in the game: success locks the clock and earns significant rewards, failure
-        permanently destroys an agent. Difficulty, game length, and Automa options explained.
-      </p>
-      <div class="topics">
-        <span class="topic-chip">Win Conditions</span>
-        <span class="topic-chip">Scoring Formula</span>
-        <span class="topic-chip">Pyrrhic Victory</span>
-        <span class="topic-chip">Time Collapse</span>
-        <span class="topic-chip">Vortex Attempt</span>
-        <span class="topic-chip">Early Win Check</span>
-        <span class="topic-chip">Difficulty Options</span>
-        <span class="topic-chip">Automa Players</span>
-      </div>
-      <div class="why-box"><strong>Why last?</strong> Scoring and the Vortex reference every earlier system. Watching this last means every term — Kairos, blots, paradox, MLT — is already understood in context.</div>
-      <a href="video8.html" class="watch-btn">▶ Watch Video 8</a>
-    </div>
-  </article>
-
-</div>
-
-<section class="summary-section">
-  <h2>Series at a Glance</h2>
-  <table class="summary-table">
-    <thead>
-      <tr><th>#</th><th>Title</th><th>Runtime</th><th>Core Concept</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>1</td><td>Welcome to Kairos: The Big Picture</td><td>~8 min</td><td>Board, trackers, win/loss</td></tr>
-      <tr><td>2</td><td>Time Travel: The Dice System</td><td>~12 min</td><td>Travel dice, 4 requirements, skulls, wilds</td></tr>
-      <tr><td>3</td><td>Articles: Items, Crystals, and Artifacts</td><td>~10 min</td><td>Recovery dice, three article types</td></tr>
-      <tr><td>4</td><td>Agents and TimeLords</td><td>~8 min</td><td>Upgrade conditions, TimeLord actions</td></tr>
-      <tr><td>5</td><td>Kronos: Your Adversary</td><td>~12 min</td><td>6-phase Kronos turn, protection strategies</td></tr>
-      <tr><td>6</td><td>Empowerment, Nerfing, and Crystal Strategy</td><td>~8 min</td><td>Crystal-artifact pairing, nerfing</td></tr>
-      <tr><td>7</td><td>Events, Jail, and Lost in Time</td><td>~10 min</td><td>Event cards, KEEP cards, escapes</td></tr>
-      <tr><td>8</td><td>Winning, Scoring, and the Time Vortex</td><td>~8 min</td><td>Score formula, Vortex, Time Collapse</td></tr>
-      <tr><td colspan="2"><strong>Total</strong></td><td><strong>~76 min</strong></td><td></td></tr>
-    </tbody>
-  </table>
-</section>
-
-<footer>KAIROS — THE TIME TRAVEL GAME &nbsp;·&nbsp; Kairos Games UK &nbsp;·&nbsp; Now playtesting on Board Game Arena</footer>
+  <footer>KAIROS — THE TIME TRAVEL GAME &nbsp;·&nbsp; Kairos Games UK &nbsp;·&nbsp; <a
+      href="https://kairos-rules.netlify.app" target="_blank" style="color:#50c8dc;text-decoration:none;">Full Rules</a>
+    &nbsp;·&nbsp; Now playtesting on Board Game Arena</footer>
 </body>
+
 </html>

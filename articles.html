@@ -111,6 +111,9 @@
     .article-table tr:hover td { background: rgba(80,200,220,0.03); }
     .article-table td:first-child { color: #c8d8e8; font-weight: normal; }
 
+    .art-name-cell { display: flex; align-items: center; gap: 10px; }
+    .art-thumb { width: 36px; height: 36px; border-radius: 4px; object-fit: cover; border: 1px solid rgba(80,200,220,0.15); flex-shrink: 0; }
+
     .kairos-val { color: #50c8dc; font-weight: bold; font-size: 1.05rem; }
     .blots-val { color: #dc5050; font-size: 1.05rem; }
     .blots-none { color: #405060; }
@@ -151,10 +154,12 @@
 <nav class="site-nav">
   <a href="index.html" class="nav-logo">⧖ Kairos</a>
   <ul class="nav-links">
-    <li><a href="index.html">Tutorial Series</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="https://kairos-rules.netlify.app" target="_blank">Rules ↗</a></li>
     <li><a href="articles.html" class="active">Articles</a></li>
     <li><a href="dice.html">Dice</a></li>
     <li><a href="processes.html">Processes</a></li>
+    <li><a href="game-options.html">Options</a></li>
     <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
   </ul>
 </nav>
@@ -198,76 +203,76 @@
       </thead>
       <tbody>
         <tr>
-          <td>Antikythera</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-m">M</span></div></td>
-        </tr>
-        <tr>
-          <td>Babylonian Tablet</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
-        </tr>
-        <tr>
-          <td>Da Vinci's Compass</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-h">H</span></div></td>
-        </tr>
-        <tr>
-          <td>Henry VII Armour</td>
-          <td class="kairos-val">3</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
-        </tr>
-        <tr>
-          <td>Maltese Falcon</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span></div></td>
-        </tr>
-        <tr>
-          <td>Schrödinger's Cat</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span></div></td>
-        </tr>
-        <tr>
-          <td>Shakespeare's Quill</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
-        </tr>
-        <tr>
-          <td>Shambhala Passport</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
-        </tr>
-        <tr>
-          <td>Tesla's Coil Fragment</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
-        </tr>
-        <tr>
-          <td>The Crown Jewels</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART211.png" alt="">Antikythera</div></td>
           <td class="kairos-val">4</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Tesseract Cube</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART210.png" alt="">Babylonian Tablet</div></td>
+          <td class="kairos-val">5</td>
+          <td class="blots-val">2</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART201.png" alt="">Da Vinci's Compass</div></td>
           <td class="kairos-val">4</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Viking Runestone</td>
-          <td class="kairos-val">2</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART103.png" alt="">Henry VIII Armour</div></td>
+          <td class="kairos-val">4</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-h">H</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART106.png" alt="">Maltese Falcon</div></td>
+          <td class="kairos-val">4</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART109.png" alt="">Schr&ouml;dinger's Cat</div></td>
+          <td class="kairos-val">5</td>
+          <td class="blots-val">2</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART212.png" alt="">Shakespeare's Quill</div></td>
+          <td class="kairos-val">4</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART208.png" alt="">Shambhala Passport</div></td>
+          <td class="kairos-val">5</td>
+          <td class="blots-val">2</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART202.png" alt="">Tesla's Coil Fragment</div></td>
+          <td class="kairos-val">5</td>
+          <td class="blots-val">2</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART107.png" alt="">The Crown Jewels</div></td>
+          <td class="kairos-val">8</td>
+          <td class="blots-val">2</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-c">C</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART111.png" alt="">Tesseract Cube</div></td>
+          <td class="kairos-val">5</td>
+          <td class="blots-val">2</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART203.png" alt="">Viking Runestone</div></td>
+          <td class="kairos-val">4</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
       </tbody>
     </table>
@@ -294,76 +299,76 @@
       </thead>
       <tbody>
         <tr>
-          <td>Amethyst</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span></div></td>
-        </tr>
-        <tr>
-          <td>Beryl</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART123.png" alt="">Amethyst</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Chalcedony</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART119.png" alt="">Beryl</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Chrysolite</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART114.png" alt="">Chalcedony</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Chrysoprasus</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART118.png" alt="">Chrysolite</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Emerald</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART121.png" alt="">Chrysoprasus</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Jacinth</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART115.png" alt="">Emerald</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Jasper</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART122.png" alt="">Jacinth</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Sapphire</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART112.png" alt="">Jasper</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Sardius</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART116.png" alt="">Sardonyx</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Sardonyx</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART113.png" alt="">Sapphire</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Topaz</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART117.png" alt="">Sardius</div></td>
           <td class="kairos-val">3</td>
           <td class="blots-val">1</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-c">C</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART120.png" alt="">Topaz</div></td>
+          <td class="kairos-val">3</td>
+          <td class="blots-val">1</td>
+          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
       </tbody>
     </table>
@@ -376,7 +381,7 @@
   <div class="article-section">
     <div class="article-section-header artifacts">
       <h2>Artifacts</h2>
-      <span class="count">12 articles</span>
+      <span class="count">11 articles</span>
       <span class="type-desc">Fixed locations · Never move · Guard in the field to earn Kairos and protect from Kronos</span>
     </div>
     <table class="article-table">
@@ -390,76 +395,76 @@
       </thead>
       <tbody>
         <tr>
-          <td>Ark of the Covenant</td>
-          <td class="kairos-val">3</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART100.png" alt="">Arc of Covenant</div></td>
+          <td class="kairos-val">6</td>
           <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span></div></td>
         </tr>
         <tr>
-          <td>Chintamani Stone</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-h">H</span></div></td>
-        </tr>
-        <tr>
-          <td>Crystal Skull</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART205.png" alt="">Chintamani Stone</div></td>
           <td class="kairos-val">4</td>
           <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Devil's Chair</td>
-          <td class="kairos-val">3</td>
-          <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
-        </tr>
-        <tr>
-          <td>Excalibur Sword</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART204.png" alt="">Crystal Skull</div></td>
           <td class="kairos-val">4</td>
           <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
         <tr>
-          <td>Holy Grail</td>
-          <td class="kairos-val">3</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART105.png" alt="">Devil's Chair</div></td>
+          <td class="kairos-val">6</td>
           <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span></div></td>
         </tr>
         <tr>
-          <td>Jade Monkey</td>
-          <td class="kairos-val">3</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART108.png" alt="">Excalibur Sword</div></td>
+          <td class="kairos-val">6</td>
           <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-c">C</span><span class="f-badge f-m">M</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span></div></td>
         </tr>
         <tr>
-          <td>King Solomon's Ring</td>
-          <td class="kairos-val">2</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART101.png" alt="">Holy Grail</div></td>
+          <td class="kairos-val">6</td>
           <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-s">S</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-h">H</span><span class="f-badge f-m">M</span><span class="f-badge f-p">P</span></div></td>
         </tr>
         <tr>
-          <td>Nefertiti's Amulet</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-h">H</span></div></td>
-        </tr>
-        <tr>
-          <td>Seal of Solomon</td>
-          <td class="kairos-val">2</td>
-          <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-h">H</span></div></td>
-        </tr>
-        <tr>
-          <td>Spear of Destiny</td>
-          <td class="kairos-val">3</td>
-          <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-s">S</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span></div></td>
-        </tr>
-        <tr>
-          <td>Staff of Osiris</td>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART209.png" alt="">Jade Monkey</div></td>
           <td class="kairos-val">4</td>
           <td class="blots-none">—</td>
-          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-m">M</span><span class="f-badge f-h">H</span></div></td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART102.png" alt="">King Solomon's Ring</div></td>
+          <td class="kairos-val">4</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART207.png" alt="">Nefertiti's Amulet</div></td>
+          <td class="kairos-val">4</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART206.png" alt="">Seal of Solomon</div></td>
+          <td class="kairos-val">4</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART110.png" alt="">Spear of Destiny</div></td>
+          <td class="kairos-val">4</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="art-name-cell"><img class="art-thumb" src="gameimages/ART200.png" alt="">Staff of Osiris</div></td>
+          <td class="kairos-val">4</td>
+          <td class="blots-none">—</td>
+          <td><div class="factors-cell"><span class="f-badge f-a">A</span><span class="f-badge f-p">P</span><span class="f-badge f-s">S</span></div></td>
         </tr>
       </tbody>
     </table>

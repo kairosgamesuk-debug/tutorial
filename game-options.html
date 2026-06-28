@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kairos — Game Options Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #06080f;
+      color: #c8d8e8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 15% 20%, rgba(20,40,120,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%, rgba(60,10,80,0.2) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(0,80,100,0.1) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ─── Nav ─── */
+    .site-nav {
+      position: relative; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px;
+      padding: 14px 28px;
+      background: rgba(4,6,16,0.95);
+      border-bottom: 1px solid rgba(80,200,220,0.2);
+    }
+    .site-nav .nav-logo { font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; color: #50c8dc; text-decoration: none; font-weight: bold; }
+    .site-nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    .site-nav .nav-links a { font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: #607880; text-decoration: none; transition: color 0.2s; }
+    .site-nav .nav-links a:hover, .site-nav .nav-links a.active { color: #50c8dc; }
+
+    /* ─── Hero ─── */
+    .page-hero {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 48px 20px 36px;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .page-hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9060a8; margin-bottom: 10px; }
+    .page-hero h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); letter-spacing: 0.1em; text-transform: uppercase; color: #50c8dc; text-shadow: 0 0 30px rgba(80,200,220,0.35); margin-bottom: 10px; }
+    .page-hero p { font-size: 0.88rem; color: #607880; line-height: 1.7; max-width: 620px; margin: 0 auto; font-style: italic; }
+
+    /* ─── Content ─── */
+    .content-wrap {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 36px auto 0; padding: 0 20px 60px;
+      display: flex; flex-direction: column; gap: 36px;
+    }
+
+    /* Phase headers */
+    .phase-header {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(80,200,220,0.15);
+    }
+    .phase-icon { font-size: 1.4rem; }
+    .phase-header h2 { font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase; color: #50c8dc; }
+    .phase-header .phase-when { font-size: 0.72rem; color: #607880; letter-spacing: 0.08em; margin-left: auto; text-transform: uppercase; }
+
+    .phase-desc {
+      font-size: 0.86rem; line-height: 1.7; color: #8098a8; margin-top: 8px;
+    }
+
+    /* Option cards */
+    .opt-grid {
+      display: flex; flex-direction: column; gap: 16px;
+      margin-top: 16px;
+    }
+    .opt-card {
+      border: 1px solid rgba(80,200,220,0.14);
+      border-radius: 4px;
+      background: rgba(8,12,24,0.7);
+      padding: 20px 22px;
+    }
+    .opt-card-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .opt-card-icon { font-size: 1.1rem; }
+    .opt-card-name {
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #50c8dc; font-weight: bold;
+    }
+    .opt-card-tag {
+      font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 2px; margin-left: auto;
+    }
+    .tag-toggle { background: rgba(80,200,220,0.1); border: 1px solid rgba(80,200,220,0.25); color: #50c8dc; }
+    .tag-choice { background: rgba(144,96,168,0.1); border: 1px solid rgba(144,96,168,0.25); color: #b080dc; }
+    .tag-bga { background: rgba(255,165,0,0.1); border: 1px solid rgba(255,165,0,0.25); color: #ffa500; }
+
+    .opt-card p {
+      font-size: 0.84rem; line-height: 1.7; color: #8098a8;
+    }
+    .opt-card .opt-default {
+      font-size: 0.74rem; color: #607880; margin-top: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Choice sub-grid */
+    .choice-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 8px; margin-top: 10px;
+    }
+    .choice-item {
+      background: rgba(80,200,220,0.04);
+      border: 1px solid rgba(80,200,220,0.12);
+      border-radius: 3px;
+      padding: 10px 12px;
+    }
+    .choice-item .ci-name {
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #50c8dc; font-weight: bold; margin-bottom: 4px;
+    }
+    .choice-item p { font-size: 0.74rem; line-height: 1.5; color: #607880; }
+
+    /* Automa sub-table */
+    .automa-table {
+      width: 100%; border-collapse: collapse; margin-top: 10px;
+      font-size: 0.78rem;
+    }
+    .automa-table th {
+      text-align: left; padding: 6px 10px;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #50c8dc; border-bottom: 1px solid rgba(80,200,220,0.2);
+    }
+    .automa-table td {
+      padding: 5px 10px; color: #8098a8;
+      border-bottom: 1px solid rgba(80,200,220,0.06);
+    }
+    .automa-table tr:last-child td { border-bottom: none; }
+
+    /* Tip box */
+    .tip-box {
+      background: rgba(80,200,220,0.05);
+      border: 1px solid rgba(80,200,220,0.2);
+      border-radius: 4px;
+      padding: 16px 18px;
+      margin-top: 12px;
+    }
+    .tip-box .tip-label {
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #50c8dc; font-weight: bold; margin-bottom: 6px;
+    }
+    .tip-box p { font-size: 0.8rem; line-height: 1.65; color: #7090a0; }
+
+    footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 20px;
+      font-size: 0.7rem; color: #304050; letter-spacing: 0.1em;
+      border-top: 1px solid rgba(80,200,220,0.08);
+    }
+
+    @media (max-width: 640px) {
+      .site-nav { flex-direction: column; gap: 10px; }
+      .choice-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">⧖ Kairos</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="https://kairos-rules.netlify.app" target="_blank">Rules ↗</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="dice.html">Dice</a></li>
+    <li><a href="processes.html">Processes</a></li>
+    <li><a href="game-options.html" class="active">Options</a></li>
+    <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Reference Guide</div>
+  <h1>Game Options</h1>
+  <p>Kairos has two layers of configuration: the BGA table settings when creating a game, and the in-game Advanced options modal shown to the table creator before play begins.</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ═══════════ PHASE 1: BGA TABLE CREATION ═══════════ -->
+  <div>
+    <div class="phase-header">
+      <span class="phase-icon">🎲</span>
+      <h2>BGA Table Settings</h2>
+      <span class="phase-when">When creating the table</span>
+    </div>
+    <p class="phase-desc">
+      These options appear in the BGA table creation screen before players join.
+      They control the overall game mode and whether AI players are included.
+    </p>
+
+    <div class="opt-grid">
+      <div class="opt-card">
+        <div class="opt-card-header">
+          <span class="opt-card-icon">⚙️</span>
+          <span class="opt-card-name">Game Mode</span>
+          <span class="opt-card-tag tag-choice">Choice</span>
+        </div>
+        <div class="choice-grid">
+          <div class="choice-item">
+            <div class="ci-name">Basic</div>
+            <p>Standard rules with default settings. Recommended for new players — jump straight in with no extra decisions.</p>
+          </div>
+          <div class="choice-item">
+            <div class="ci-name">Advanced</div>
+            <p>The table creator gets an in-game options modal before play starts, allowing full control over difficulty, game length, and special features.</p>
+          </div>
+        </div>
+        <div class="opt-default">Default: Basic</div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header">
+          <span class="opt-card-icon">🤖</span>
+          <span class="opt-card-name">Automa (AI) Players</span>
+          <span class="opt-card-tag tag-bga">Advanced Only</span>
+        </div>
+        <p>
+          Add AI-controlled players to fill empty seats. This option only appears when Game Mode is set to Advanced.
+          The number of agents each human player controls depends on the total player count (humans + automa),
+          so this must be decided before the game starts.
+        </p>
+        <table class="automa-table">
+          <tr><th>Total Players</th><th>Agents per Human</th></tr>
+          <tr><td>2 players</td><td>6 agents</td></tr>
+          <tr><td>3 players</td><td>4 agents</td></tr>
+          <tr><td>4 players</td><td>3 agents</td></tr>
+        </table>
+        <div class="choice-grid" style="margin-top:12px">
+          <div class="choice-item">
+            <div class="ci-name">AutoBeta</div>
+            <p>Standard AI difficulty — good for learning and casual play.</p>
+          </div>
+          <div class="choice-item">
+            <div class="ci-name">AutoAlpha ★</div>
+            <p>Harder AI — makes smarter decisions and is more aggressive.</p>
+          </div>
+        </div>
+        <div class="opt-default">Default: None (all human players)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PHASE 2: IN-GAME ADVANCED OPTIONS ═══════════ -->
+  <div>
+    <div class="phase-header">
+      <span class="phase-icon">🛠️</span>
+      <h2>In-Game Options (Advanced Mode)</h2>
+      <span class="phase-when">Before play begins</span>
+    </div>
+    <p class="phase-desc">
+      When Game Mode is set to Advanced, the table creator sees an options modal after all players have joined
+      but before team setup. These settings shape the game's difficulty, length, and special features.
+    </p>
+
+    <div class="opt-grid">
+
+      <div class="opt-card">
+        <div class="opt-card-header">
+          <span class="opt-card-icon">🎯</span>
+          <span class="opt-card-name">Difficulty</span>
+          <span class="opt-card-tag tag-choice">Choice</span>
+        </div>
+        <div class="choice-grid">
+          <div class="choice-item">
+            <div class="ci-name">Easy</div>
+            <p>Crystal Light gets an extra +1 bonus. More forgiving for new teams learning the mechanics.</p>
+          </div>
+          <div class="choice-item">
+            <div class="ci-name">Medium</div>
+            <p>Standard rules as designed. The intended Kairos experience.</p>
+          </div>
+          <div class="choice-item">
+            <div class="ci-name">Hard</div>
+            <p>Kronos darkness gets extra power. For experienced teams seeking a real challenge.</p>
+          </div>
+        </div>
+        <div class="opt-default">Default: Medium</div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header">
+          <span class="opt-card-icon">📏</span>
+          <span class="opt-card-name">Game Length</span>
+          <span class="opt-card-tag tag-choice">Choice</span>
+        </div>
+        <p>
+          Adjusts the number of rounds before the Singularity arrives.
+          The base round count depends on how many players are in the game.
+        </p>
+        <div class="choice-grid">
+          <div class="choice-item">
+            <div class="ci-name">Short</div>
+            <p>Base rounds minus 2. Fast-paced — every turn counts.</p>
+          </div>
+          <div class="choice-item">
+            <div class="ci-name">Standard</div>
+            <p>Base rounds. The designed game length for the player count.</p>
+          </div>
+          <div class="choice-item">
+            <div class="ci-name">Long</div>
+            <p>Base rounds plus 2. More time to explore and strategise.</p>
+          </div>
+        </div>
+        <div class="opt-default">Default: Standard</div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header">
+          <span class="opt-card-icon">🥚</span>
+          <span class="opt-card-name">Easter Egg Crystal</span>
+          <span class="opt-card-tag tag-toggle">Toggle</span>
+        </div>
+        <p>
+          One crystal on the board is secretly the Easter Egg. If your team finds it and deposits it at HQ,
+          you earn a special bonus. Adds a layer of exploration and discovery to the crystal-hunting mechanic.
+        </p>
+        <div class="opt-default">Default: OFF</div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header">
+          <span class="opt-card-icon">🦕</span>
+          <span class="opt-card-name">Time-Travelling Dinosaurs</span>
+          <span class="opt-card-tag tag-toggle">Toggle</span>
+        </div>
+        <p>
+          Dinosaurs roam the time field, displaced from their own era! Send them back to earn rewards.
+          A fun optional mechanic that adds side objectives and extra strategic choices during agent turns.
+        </p>
+        <div class="opt-default">Default: OFF</div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header">
+          <span class="opt-card-icon">🛠️</span>
+          <span class="opt-card-name">Debug Mode</span>
+          <span class="opt-card-tag tag-toggle">Toggle</span>
+        </div>
+        <p>
+          Shows the debug panel for testing and development purposes.
+          Not needed for normal gameplay — intended for game testing and bug reporting.
+        </p>
+        <div class="opt-default">Default: OFF</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ TIPS ═══════════ -->
+  <div class="tip-box">
+    <div class="tip-label">💡 First Game Recommendation</div>
+    <p>
+      For your first game, use <strong>Basic</strong> mode. This gives you standard rules with sensible defaults
+      so you can focus on learning the core mechanics. Once you're comfortable, switch to <strong>Advanced</strong>
+      to unlock difficulty tuning, game length control, and the optional features like Easter Egg and Dinosaurs.
+    </p>
+  </div>
+
+</div>
+
+<footer>KAIROS — THE TIME TRAVEL GAME &nbsp;·&nbsp; Board Game Arena &nbsp;·&nbsp; Game Options Reference</footer>
+</body>
+</html>

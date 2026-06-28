@@ -64,14 +64,11 @@
       border: 1px solid rgba(80,200,220,0.18);
       color: #809098;
     }
-    .legend-chip .lg-key {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 22px; height: 22px;
-      font-weight: bold; font-size: 0.85rem;
+    .legend-chip .lg-img {
+      width: 26px; height: 26px;
       border-radius: 3px;
-      background: #0c1018;
       border: 1px solid rgba(80,200,220,0.3);
-      color: #50c8dc;
+      object-fit: cover;
     }
 
     /* ─── Dice Sections ─── */
@@ -120,26 +117,17 @@
     .face {
       aspect-ratio: 1 / 1;
       display: flex; align-items: center; justify-content: center;
-      font-weight: bold; font-size: 1rem;
       border-radius: 4px;
       background: #0c1018;
       border: 1px solid rgba(80,200,220,0.22);
-      color: #c8d8e8;
+      overflow: hidden;
     }
-    /* face value colours */
-    .fv-num   { color: #50c8dc; }
-    .fv-wild  { color: #b878e0; background: rgba(120,80,160,0.18); }
-    .fv-skull { color: #dc5050; background: rgba(180,40,40,0.15); }
-    .fv-blank { color: #344050; }
-    .fv-event { color: #e0c050; background: rgba(180,150,40,0.12); }
-    .fv-neg   { color: #50dc80; background: rgba(60,180,100,0.15); }
-    .fv-haz   { color: #ff7050; background: rgba(200,70,40,0.15); }
-    .fv-a { color: #e0c050; }
-    .fv-s { color: #e07070; }
-    .fv-c { color: #60d0a0; }
-    .fv-p { color: #70a8e0; }
-    .fv-m { color: #e8a040; }
-    .fv-h { color: #d8d8d8; }
+    .face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 3px;
+    }
 
     .section-note {
       margin-top: 18px;
@@ -161,10 +149,12 @@
 <nav class="site-nav">
   <a href="index.html" class="nav-logo">⧖ Kairos</a>
   <ul class="nav-links">
-    <li><a href="index.html">Tutorial Series</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="https://kairos-rules.netlify.app" target="_blank">Rules ↗</a></li>
     <li><a href="articles.html">Articles</a></li>
     <li><a href="dice.html" class="active">Dice</a></li>
     <li><a href="processes.html">Processes</a></li>
+    <li><a href="game-options.html">Options</a></li>
     <li><a href="https://boardgamearena.com" target="_blank">Play on BGA ↗</a></li>
   </ul>
 </nav>
@@ -179,14 +169,16 @@
 <div class="legend-section">
   <h2>Travel Face Legend</h2>
   <div class="legend-grid">
-    <span class="legend-chip"><span class="lg-key fv-num">6</span> Ring / Planet value</span>
-    <span class="legend-chip"><span class="lg-key fv-num">1</span> Base / Direction value</span>
-    <span class="legend-chip"><span class="lg-key fv-wild">*</span> Wild — substitutes any need</span>
-    <span class="legend-chip"><span class="lg-key fv-skull">X</span> Skull — two = fail</span>
-    <span class="legend-chip"><span class="lg-key fv-neg">!</span> Negate — cancels one skull</span>
-    <span class="legend-chip"><span class="lg-key fv-blank">0</span> Blank — no result</span>
-    <span class="legend-chip"><span class="lg-key fv-event">$</span> Event — triggers an Event</span>
-    <span class="legend-chip"><span class="lg-key fv-haz">+</span> Hazard cross</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_6.jpg" alt="6"> Ring / Planet value</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_1.jpg" alt="1"> Base / Direction value</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_wild.jpg" alt="Wild"> Wild — substitutes any need</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_skull.jpg" alt="Skull"> Skull — two = fail</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_negate.jpg" alt="Negate"> Negate — cancels one skull</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_blank.jpg" alt="Blank"> Blank — no result</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_event.jpg" alt="Event"> Event — triggers an Event</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_hazard_cross.jpg" alt="Hazard"> Hazard cross</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_age_up.jpg" alt="Ageing"> Ageing check</span>
+    <span class="legend-chip"><img class="lg-img" src="gameimages/dice_age_down.jpg" alt="Sickness"> Sickness check</span>
   </div>
 </div>
 
@@ -205,8 +197,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#d98a1a"></span><span class="die-name">Ring</span></div>
         <div class="die-role">Orange · matches the destination's ring band</div>
         <div class="die-faces">
-          <span class="face fv-num">6</span><span class="face fv-num">6</span><span class="face fv-num">7</span>
-          <span class="face fv-num">8</span><span class="face fv-skull">X</span><span class="face fv-blank">0</span>
+          <span class="face"><img src="gameimages/dice_6.jpg" alt="6"></span>
+          <span class="face"><img src="gameimages/dice_6.jpg" alt="6"></span>
+          <span class="face"><img src="gameimages/dice_7.jpg" alt="7"></span>
+          <span class="face"><img src="gameimages/dice_8.jpg" alt="8"></span>
+          <span class="face"><img src="gameimages/dice_skull.jpg" alt="Skull"></span>
+          <span class="face"><img src="gameimages/dice_blank.jpg" alt="Blank"></span>
         </div>
       </div>
 
@@ -214,8 +210,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#1c1c1c"></span><span class="die-name">Direction</span></div>
         <div class="die-role">Black · matches the travel direction</div>
         <div class="die-faces">
-          <span class="face fv-num">2</span><span class="face fv-num">2</span><span class="face fv-num">3</span>
-          <span class="face fv-skull">X</span><span class="face fv-blank">0</span><span class="face fv-wild">*</span>
+          <span class="face"><img src="gameimages/dice_2.jpg" alt="2"></span>
+          <span class="face"><img src="gameimages/dice_2.jpg" alt="2"></span>
+          <span class="face"><img src="gameimages/dice_3.jpg" alt="3"></span>
+          <span class="face"><img src="gameimages/dice_skull.jpg" alt="Skull"></span>
+          <span class="face"><img src="gameimages/dice_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
         </div>
       </div>
 
@@ -223,8 +223,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#2c8a2c"></span><span class="die-name">Base</span></div>
         <div class="die-role">Green · the time-reference / base die</div>
         <div class="die-faces">
-          <span class="face fv-num">1</span><span class="face fv-num">1</span><span class="face fv-num">1</span>
-          <span class="face fv-num">1</span><span class="face fv-blank">0</span><span class="face fv-wild">*</span>
+          <span class="face"><img src="gameimages/dice_1.jpg" alt="1"></span>
+          <span class="face"><img src="gameimages/dice_1.jpg" alt="1"></span>
+          <span class="face"><img src="gameimages/dice_1.jpg" alt="1"></span>
+          <span class="face"><img src="gameimages/dice_1.jpg" alt="1"></span>
+          <span class="face"><img src="gameimages/dice_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
         </div>
       </div>
 
@@ -232,8 +236,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#3060c8"></span><span class="die-name">Portal</span></div>
         <div class="die-role">Blue · bonus — starting next to a portal</div>
         <div class="die-faces">
-          <span class="face fv-wild">*</span><span class="face fv-wild">*</span><span class="face fv-wild">*</span>
-          <span class="face fv-wild">*</span><span class="face fv-blank">0</span><span class="face fv-skull">X</span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_skull.jpg" alt="Skull"></span>
         </div>
       </div>
 
@@ -241,8 +249,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#dde2e8"></span><span class="die-name">Planet</span></div>
         <div class="die-role">White · the destination / planet die</div>
         <div class="die-faces">
-          <span class="face fv-num">5</span><span class="face fv-num">5</span><span class="face fv-num">4</span>
-          <span class="face fv-skull">X</span><span class="face fv-blank">0</span><span class="face fv-wild">*</span>
+          <span class="face"><img src="gameimages/dice_5.jpg" alt="5"></span>
+          <span class="face"><img src="gameimages/dice_5.jpg" alt="5"></span>
+          <span class="face"><img src="gameimages/dice_4.jpg" alt="4"></span>
+          <span class="face"><img src="gameimages/dice_skull.jpg" alt="Skull"></span>
+          <span class="face"><img src="gameimages/dice_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
         </div>
       </div>
 
@@ -250,8 +262,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#d8c020"></span><span class="die-name">Adjacent</span></div>
         <div class="die-role">Yellow · bonus — destination is adjacent</div>
         <div class="die-faces">
-          <span class="face fv-neg">!</span><span class="face fv-neg">!</span><span class="face fv-wild">*</span>
-          <span class="face fv-wild">*</span><span class="face fv-blank">0</span><span class="face fv-wild">*</span>
+          <span class="face"><img src="gameimages/dice_negate.jpg" alt="Negate"></span>
+          <span class="face"><img src="gameimages/dice_negate.jpg" alt="Negate"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
         </div>
       </div>
 
@@ -259,17 +275,38 @@
         <div class="die-head"><span class="die-swatch" style="background:#3aa0c0"></span><span class="die-name">TimeLord</span></div>
         <div class="die-role">Bonus wilds — TimeLord agents only</div>
         <div class="die-faces">
-          <span class="face fv-wild">*</span><span class="face fv-wild">*</span><span class="face fv-wild">*</span>
-          <span class="face fv-wild">*</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_blank.jpg" alt="Blank"></span>
         </div>
       </div>
 
       <div class="die-card">
-        <div class="die-head"><span class="die-swatch" style="background:#a02020"></span><span class="die-name">Baal</span></div>
-        <div class="die-role">Hazard die — added when timeline ≤ −6</div>
+        <div class="die-head"><span class="die-swatch" style="background:#a02020"></span><span class="die-name">Hazard</span></div>
+        <div class="die-role">Hazard die — added when timeline &le; &minus;6</div>
         <div class="die-faces">
-          <span class="face fv-haz">+</span><span class="face fv-haz">+</span><span class="face fv-blank">0</span>
-          <span class="face fv-blank">0</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+          <span class="face"><img src="gameimages/dice_hazard_cross.jpg" alt="Hazard"></span>
+          <span class="face"><img src="gameimages/dice_hazard_cross.jpg" alt="Hazard"></span>
+          <span class="face"><img src="gameimages/dice_hazard_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_hazard_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_hazard_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_hazard_blank.jpg" alt="Blank"></span>
+        </div>
+      </div>
+
+      <div class="die-card">
+        <div class="die-head"><span class="die-swatch" style="background:#7c3aed"></span><span class="die-name">Age</span></div>
+        <div class="die-role">Ageing die — always included in every travel roll</div>
+        <div class="die-faces">
+          <span class="face"><img src="gameimages/dice_age_up.jpg" alt="Ageing"></span>
+          <span class="face"><img src="gameimages/dice_age_down.jpg" alt="Sickness"></span>
+          <span class="face"><img src="gameimages/dice_age_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_age_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_age_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_age_blank.jpg" alt="Blank"></span>
         </div>
       </div>
 
@@ -277,14 +314,18 @@
         <div class="die-head"><span class="die-swatch" style="background:#7a3aa0"></span><span class="die-name">Alpha</span></div>
         <div class="die-role">AutoAlpha bonus die — 2 wilds, 1 event</div>
         <div class="die-faces">
-          <span class="face fv-wild">*</span><span class="face fv-wild">*</span><span class="face fv-event">$</span>
-          <span class="face fv-blank">0</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+          <span class="face"><img src="gameimages/dice_alpha_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_alpha_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_event.jpg" alt="Event"></span>
+          <span class="face"><img src="gameimages/dice_alpha_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_alpha_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_alpha_blank.jpg" alt="Blank"></span>
         </div>
       </div>
 
     </div>
     <div class="section-note">
-      The destination always contributes a Ring, Base and Planet die; the Direction die is added only when the trip crosses eras. Portal, Adjacent, TimeLord and Baal dice join the pool conditionally. The player rolls up to four times, locking dice between rolls. Wilds substitute for any required value — two skulls means the trip fails.
+      The destination always contributes a Ring, Base and Planet die; the Direction die is added only when the trip crosses eras. Portal, Adjacent, TimeLord, Hazard and Age dice join the pool conditionally (Age is always present). The player rolls up to four times, locking dice between rolls. Wilds substitute for any required value — two skulls means the trip fails.
     </div>
   </div>
 
@@ -292,16 +333,16 @@
   <div class="legend-section" style="margin-top:0;">
     <h2>Recovery Face Legend</h2>
     <div class="legend-grid">
-      <span class="legend-chip"><span class="lg-key fv-a">A</span> Archaeology</span>
-      <span class="legend-chip"><span class="lg-key fv-s">S</span> Security</span>
-      <span class="legend-chip"><span class="lg-key fv-c">C</span> Cyber</span>
-      <span class="legend-chip"><span class="lg-key fv-p">P</span> Psychic</span>
-      <span class="legend-chip"><span class="lg-key fv-m">M</span> Medical</span>
-      <span class="legend-chip"><span class="lg-key fv-h">H</span> Historian</span>
-      <span class="legend-chip"><span class="lg-key fv-wild">*</span> Wild</span>
-      <span class="legend-chip"><span class="lg-key fv-event">$</span> Event</span>
-      <span class="legend-chip"><span class="lg-key fv-blank">0</span> Blank</span>
-      <span class="legend-chip"><span class="lg-key fv-haz">+</span> Hazard</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_A.jpg" alt="A"> Archaeology</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_S.jpg" alt="S"> Security</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_C.jpg" alt="C"> Cyber</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_P.jpg" alt="P"> Psychic</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_M.jpg" alt="M"> Medical</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_H.jpg" alt="H"> Historian</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_wild_recovery.jpg" alt="Wild"> Wild</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_event.jpg" alt="Event"> Event</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_blank_recovery.jpg" alt="Blank"> Blank</span>
+      <span class="legend-chip"><img class="lg-img" src="gameimages/dice_hazard_cross.jpg" alt="Hazard"> Hazard</span>
     </div>
   </div>
 
@@ -318,8 +359,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#cc2222"></span><span class="die-name">Red</span></div>
         <div class="die-role">Colour die · covers A·S·C·P·M factors</div>
         <div class="die-faces">
-          <span class="face fv-a">A</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
-          <span class="face fv-p">P</span><span class="face fv-m">M</span><span class="face fv-event">$</span>
+          <span class="face"><img src="gameimages/dice_A.jpg" alt="A"></span>
+          <span class="face"><img src="gameimages/dice_S.jpg" alt="S"></span>
+          <span class="face"><img src="gameimages/dice_C.jpg" alt="C"></span>
+          <span class="face"><img src="gameimages/dice_P.jpg" alt="P"></span>
+          <span class="face"><img src="gameimages/dice_M.jpg" alt="M"></span>
+          <span class="face"><img src="gameimages/dice_event.jpg" alt="Event"></span>
         </div>
       </div>
 
@@ -327,8 +372,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#1a5fb4"></span><span class="die-name">Blue</span></div>
         <div class="die-role">Colour die · covers A·S·C·P·H factors</div>
         <div class="die-faces">
-          <span class="face fv-a">A</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
-          <span class="face fv-p">P</span><span class="face fv-event">$</span><span class="face fv-h">H</span>
+          <span class="face"><img src="gameimages/dice_A.jpg" alt="A"></span>
+          <span class="face"><img src="gameimages/dice_S.jpg" alt="S"></span>
+          <span class="face"><img src="gameimages/dice_C.jpg" alt="C"></span>
+          <span class="face"><img src="gameimages/dice_P.jpg" alt="P"></span>
+          <span class="face"><img src="gameimages/dice_event.jpg" alt="Event"></span>
+          <span class="face"><img src="gameimages/dice_H.jpg" alt="H"></span>
         </div>
       </div>
 
@@ -336,8 +385,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#228b22"></span><span class="die-name">Green</span></div>
         <div class="die-role">Colour die · A·S·C·P·H plus a Wild</div>
         <div class="die-faces">
-          <span class="face fv-a">A</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
-          <span class="face fv-p">P</span><span class="face fv-wild">*</span><span class="face fv-h">H</span>
+          <span class="face"><img src="gameimages/dice_A.jpg" alt="A"></span>
+          <span class="face"><img src="gameimages/dice_S.jpg" alt="S"></span>
+          <span class="face"><img src="gameimages/dice_C.jpg" alt="C"></span>
+          <span class="face"><img src="gameimages/dice_P.jpg" alt="P"></span>
+          <span class="face"><img src="gameimages/dice_wild_recovery.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_H.jpg" alt="H"></span>
         </div>
       </div>
 
@@ -345,8 +398,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#1c1c1c"></span><span class="die-name">Black</span></div>
         <div class="die-role">Colour die · S·C·P·H plus Wild &amp; Event</div>
         <div class="die-faces">
-          <span class="face fv-wild">*</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
-          <span class="face fv-p">P</span><span class="face fv-event">$</span><span class="face fv-h">H</span>
+          <span class="face"><img src="gameimages/dice_wild_recovery.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_S.jpg" alt="S"></span>
+          <span class="face"><img src="gameimages/dice_C.jpg" alt="C"></span>
+          <span class="face"><img src="gameimages/dice_P.jpg" alt="P"></span>
+          <span class="face"><img src="gameimages/dice_event.jpg" alt="Event"></span>
+          <span class="face"><img src="gameimages/dice_H.jpg" alt="H"></span>
         </div>
       </div>
 
@@ -354,8 +411,12 @@
         <div class="die-head"><span class="die-swatch" style="background:#dde2e8"></span><span class="die-name">White</span></div>
         <div class="die-role">Colour die · A·S·C·P·M plus a Wild</div>
         <div class="die-faces">
-          <span class="face fv-a">A</span><span class="face fv-s">S</span><span class="face fv-c">C</span>
-          <span class="face fv-p">P</span><span class="face fv-m">M</span><span class="face fv-wild">*</span>
+          <span class="face"><img src="gameimages/dice_A.jpg" alt="A"></span>
+          <span class="face"><img src="gameimages/dice_S.jpg" alt="S"></span>
+          <span class="face"><img src="gameimages/dice_C.jpg" alt="C"></span>
+          <span class="face"><img src="gameimages/dice_P.jpg" alt="P"></span>
+          <span class="face"><img src="gameimages/dice_M.jpg" alt="M"></span>
+          <span class="face"><img src="gameimages/dice_wild_recovery.jpg" alt="Wild"></span>
         </div>
       </div>
 
@@ -363,17 +424,25 @@
         <div class="die-head"><span class="die-swatch" style="background:#3aa0c0"></span><span class="die-name">TimeLord</span></div>
         <div class="die-role">Bonus die — TimeLord agents · 2 wilds</div>
         <div class="die-faces">
-          <span class="face fv-m">M</span><span class="face fv-c">C</span><span class="face fv-p">P</span>
-          <span class="face fv-h">H</span><span class="face fv-wild">*</span><span class="face fv-wild">*</span>
+          <span class="face"><img src="gameimages/dice_M.jpg" alt="M"></span>
+          <span class="face"><img src="gameimages/dice_C.jpg" alt="C"></span>
+          <span class="face"><img src="gameimages/dice_P.jpg" alt="P"></span>
+          <span class="face"><img src="gameimages/dice_H.jpg" alt="H"></span>
+          <span class="face"><img src="gameimages/dice_wild_recovery.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_wild_recovery.jpg" alt="Wild"></span>
         </div>
       </div>
 
       <div class="die-card">
-        <div class="die-head"><span class="die-swatch" style="background:#a02020"></span><span class="die-name">Baal</span></div>
-        <div class="die-role">Hazard die — added when timeline ≤ −6</div>
+        <div class="die-head"><span class="die-swatch" style="background:#a02020"></span><span class="die-name">Hazard</span></div>
+        <div class="die-role">Hazard die — added when timeline &le; &minus;6</div>
         <div class="die-faces">
-          <span class="face fv-haz">+</span><span class="face fv-haz">+</span><span class="face fv-blank">0</span>
-          <span class="face fv-blank">0</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+          <span class="face"><img src="gameimages/dice_hazard_cross.jpg" alt="Hazard"></span>
+          <span class="face"><img src="gameimages/dice_hazard_cross.jpg" alt="Hazard"></span>
+          <span class="face"><img src="gameimages/dice_hazard_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_hazard_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_hazard_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_hazard_blank.jpg" alt="Blank"></span>
         </div>
       </div>
 
@@ -381,14 +450,18 @@
         <div class="die-head"><span class="die-swatch" style="background:#7a3aa0"></span><span class="die-name">Alpha</span></div>
         <div class="die-role">AutoAlpha bonus die — 2 wilds, 1 event</div>
         <div class="die-faces">
-          <span class="face fv-wild">*</span><span class="face fv-wild">*</span><span class="face fv-event">$</span>
-          <span class="face fv-blank">0</span><span class="face fv-blank">0</span><span class="face fv-blank">0</span>
+          <span class="face"><img src="gameimages/dice_alpha_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_alpha_wild.jpg" alt="Wild"></span>
+          <span class="face"><img src="gameimages/dice_event.jpg" alt="Event"></span>
+          <span class="face"><img src="gameimages/dice_alpha_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_alpha_blank.jpg" alt="Blank"></span>
+          <span class="face"><img src="gameimages/dice_alpha_blank.jpg" alt="Blank"></span>
         </div>
       </div>
 
     </div>
     <div class="section-note recovery-note">
-      Each article lists the recovery factors it requires (Archaeology, Security, Cyber, Psychic, Medical, Historian). Colour dice are selected so the pool can cover every required factor, with TimeLord, Baal and Alpha bonus dice added when applicable. The player rolls up to four times and locks dice between rolls; wilds substitute for any factor.
+      Each article lists the recovery factors it requires (Archaeology, Security, Cyber, Psychic, Medical, Historian). Colour dice are selected so the pool can cover every required factor, with TimeLord, Hazard and Alpha bonus dice added when applicable. The player rolls up to four times and locks dice between rolls; wilds substitute for any factor.
     </div>
   </div>
 
